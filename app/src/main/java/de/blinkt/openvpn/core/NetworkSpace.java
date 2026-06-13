@@ -11,7 +11,7 @@ import android.os.Build;
 
 import androidx.annotation.NonNull;
 
-import com.bytesbee.vpnapp.BuildConfig;
+import com.rhino.vpnapp.BuildConfig;
 
 import java.math.BigInteger;
 import java.net.Inet4Address;

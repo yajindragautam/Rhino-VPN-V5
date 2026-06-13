@@ -3,7 +3,7 @@ plugins {
 }
 
 ext {
-    appname = "com.bytesbee.vpnapp" //"com.android.vpnapp"
+    appname = "com.rhino.vpnapp" //"com.android.vpnapp"
     compileSDK = 36
     minSDK = 24
     targetSDK = 36

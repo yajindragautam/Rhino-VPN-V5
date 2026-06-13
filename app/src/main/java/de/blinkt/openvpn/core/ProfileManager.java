@@ -12,7 +12,7 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.os.Build;
 
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.File;
 import java.io.FileInputStream;

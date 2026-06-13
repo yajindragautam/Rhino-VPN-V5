@@ -35,8 +35,8 @@ import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bytesbee.vpnapp.R;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.R;
+import com.rhino.vpnapp.utils.Utils;
 
 import de.blinkt.openvpn.core.IOpenVPNServiceInternal;
 import de.blinkt.openvpn.core.OpenVPNService;

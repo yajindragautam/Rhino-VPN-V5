@@ -22,7 +22,7 @@ import java.util.Locale;
 import java.util.Objects;
 import java.util.Vector;
 
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.R;
 
 public class VpnStatus {
     private static final LinkedList<LogItem> logbuffer;

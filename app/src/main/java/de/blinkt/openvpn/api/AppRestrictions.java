@@ -17,7 +17,7 @@ import android.os.Bundle;
 import android.os.Parcelable;
 import android.text.TextUtils;
 
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.IOException;
 import java.io.StringReader;

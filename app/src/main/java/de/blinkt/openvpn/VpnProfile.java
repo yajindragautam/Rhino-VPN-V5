@@ -24,8 +24,8 @@ import android.util.Base64;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 
-import com.bytesbee.vpnapp.R;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.R;
+import com.rhino.vpnapp.utils.Utils;
 
 import org.spongycastle.util.io.pem.PemObject;
 import org.spongycastle.util.io.pem.PemWriter;

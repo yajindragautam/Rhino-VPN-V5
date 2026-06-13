@@ -13,7 +13,7 @@ import android.content.Intent;
 import android.content.ServiceConnection;
 import android.os.IBinder;
 
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.R;
 
 import de.blinkt.openvpn.core.OpenVPNService;
 import de.blinkt.openvpn.core.ProfileManager;

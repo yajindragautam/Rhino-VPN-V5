@@ -6,7 +6,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorBackground"
-    tools:context="com.bytesbee.vpnapp.activity.LogsActivity">
+    tools:context="com.rhino.vpnapp.activity.LogsActivity">
 
     <ImageView
         android:id="@+id/imgBack"

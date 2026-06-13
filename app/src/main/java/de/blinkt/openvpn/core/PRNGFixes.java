@@ -17,7 +17,7 @@ import android.os.Build;
 import android.os.Process;
 import android.util.Log;
 
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.ByteArrayOutputStream;
 import java.io.DataInputStream;

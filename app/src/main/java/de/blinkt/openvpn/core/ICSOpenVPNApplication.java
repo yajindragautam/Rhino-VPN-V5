@@ -23,8 +23,8 @@ import androidx.annotation.RequiresApi;
 
 import java.util.concurrent.Executors;
 
-import com.bytesbee.vpnapp.BuildConfig;
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.BuildConfig;
+import com.rhino.vpnapp.R;
 import de.blinkt.openvpn.api.AppRestrictions;
 
 public class ICSOpenVPNApplication extends Application {

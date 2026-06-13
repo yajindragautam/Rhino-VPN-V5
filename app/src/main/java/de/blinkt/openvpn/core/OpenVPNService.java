@@ -6,8 +6,8 @@
 package de.blinkt.openvpn.core;
 
 import static android.content.Intent.FLAG_ACTIVITY_NEW_TASK;
-import static com.bytesbee.vpnapp.managers.UsageManager.KEY_TOTAL_TIME;
-import static com.bytesbee.vpnapp.managers.UsageManager.STR_TIME;
+import static com.rhino.vpnapp.managers.UsageManager.KEY_TOTAL_TIME;
+import static com.rhino.vpnapp.managers.UsageManager.STR_TIME;
 import static de.blinkt.openvpn.VpnProfile.EXTRA_PROFILEUUID;
 import static de.blinkt.openvpn.VpnProfile.EXTRA_PROFILE_VERSION;
 import static de.blinkt.openvpn.core.ConnectionStatus.LEVEL_CONNECTED;
@@ -58,9 +58,9 @@ import androidx.annotation.RequiresApi;
 import androidx.core.app.NotificationCompat;
 import androidx.localbroadcastmanager.content.LocalBroadcastManager;
 
-import com.bytesbee.vpnapp.R;
-import com.bytesbee.vpnapp.managers.UsageManager;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.R;
+import com.rhino.vpnapp.managers.UsageManager;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.IOException;
 import java.lang.reflect.InvocationTargetException;

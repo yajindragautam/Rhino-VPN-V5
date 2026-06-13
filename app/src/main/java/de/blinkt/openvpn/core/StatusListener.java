@@ -19,8 +19,8 @@ import android.util.Log;
 
 import androidx.annotation.RequiresApi;
 
-import com.bytesbee.vpnapp.BuildConfig;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.BuildConfig;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.DataInputStream;
 import java.io.File;

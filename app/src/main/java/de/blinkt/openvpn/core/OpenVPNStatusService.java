@@ -17,7 +17,7 @@ import android.util.Pair;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.utils.Utils;
 import java.io.DataOutputStream;
 import java.io.IOException;
 import java.lang.ref.WeakReference;

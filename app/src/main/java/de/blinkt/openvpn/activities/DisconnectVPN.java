@@ -17,7 +17,7 @@ import android.os.IBinder;
 import android.os.RemoteException;
 import android.widget.Toast;
 
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.R;
 
 import de.blinkt.openvpn.core.IOpenVPNServiceInternal;
 import de.blinkt.openvpn.core.OpenVPNService;

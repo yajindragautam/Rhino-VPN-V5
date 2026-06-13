@@ -31,8 +31,8 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Objects;
 
-import com.bytesbee.vpnapp.R;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.R;
+import com.rhino.vpnapp.utils.Utils;
 import de.blinkt.openvpn.VpnProfile;
 import de.blinkt.openvpn.core.ConfigParser;
 import de.blinkt.openvpn.core.ConfigParser.ConfigParseError;

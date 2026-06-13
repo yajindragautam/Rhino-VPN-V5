@@ -16,7 +16,7 @@ import java.io.InputStream;
 import java.util.Arrays;
 import java.util.Vector;
 
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.R;
 import de.blinkt.openvpn.VpnProfile;
 
 public class VPNLaunchHelper {

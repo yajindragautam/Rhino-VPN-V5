@@ -18,7 +18,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.annotation.StringRes;
 
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.R;
 
 import java.io.ByteArrayInputStream;
 import java.io.UnsupportedEncodingException;

@@ -11,7 +11,7 @@ import android.text.TextUtils;
 import androidx.annotation.NonNull;
 import androidx.core.util.Pair;
 
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.BufferedReader;
 import java.io.IOException;

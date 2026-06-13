@@ -9,8 +9,8 @@ import android.os.Handler;
 import android.os.Looper;
 import android.os.Message;
 
-import com.bytesbee.vpnapp.R;
-import com.bytesbee.vpnapp.utils.Utils;
+import com.rhino.vpnapp.R;
+import com.rhino.vpnapp.utils.Utils;
 
 import java.io.BufferedInputStream;
 import java.io.File;

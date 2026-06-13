@@ -80,7 +80,7 @@
             android:textColor="@color/colorDarkText" />
     </RadioGroup>
 
-    <com.bytesbee.vpnapp.utils.CountAnimationTextView
+    <com.rhino.vpnapp.utils.CountAnimationTextView
         android:id="@+id/countAnimationTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"

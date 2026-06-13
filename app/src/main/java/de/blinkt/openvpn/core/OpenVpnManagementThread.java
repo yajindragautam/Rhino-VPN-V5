@@ -17,7 +17,7 @@ import android.util.Log;
 
 import androidx.annotation.NonNull;
 
-import com.bytesbee.vpnapp.R;
+import com.rhino.vpnapp.R;
 
 import java.io.FileDescriptor;
 import java.io.IOException;

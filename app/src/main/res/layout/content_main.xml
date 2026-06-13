@@ -1,0 +1,494 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:ignore="SpUsage">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutImage"
+            android:layout_width="@dimen/padding200"
+            android:layout_height="@dimen/padding200"
+            android:layout_marginTop="@dimen/padding4"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/animationView"
+                android:layout_width="@dimen/padding185"
+                android:layout_height="@dimen/padding185"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/vpn_circle" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgConnect"
+                android:layout_width="@dimen/padding170"
+                android:layout_height="@dimen/padding170"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/vpn_start" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgDisconnect"
+                android:layout_width="@dimen/padding170"
+                android:layout_height="@dimen/padding170"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/vpn_stop" />
+
+            <ImageView
+                android:id="@+id/imgConnects"
+                android:layout_width="@dimen/padding200"
+                android:layout_height="@dimen/padding200"
+                android:layout_marginStart="@dimen/padding20"
+                android:layout_marginEnd="@dimen/padding20"
+                android:contentDescription="@string/app_name"
+                android:src="@drawable/connected_green"
+                android:visibility="invisible"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <TextView
+            android:id="@+id/txtStatus"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:fontFamily="@font/poppins"
+            android:gravity="center"
+            android:lines="2"
+            android:text="@string/strTapStart"
+            android:textColor="@color/colorTitleText"
+            android:textSize="@dimen/textSize16"
+            android:textStyle="bold"
+            android:visibility="visible"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutImage" />
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutIPAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding30"
+            android:layout_marginTop="@dimen/padding8"
+            android:layout_marginEnd="@dimen/padding30"
+            android:background="@drawable/rounded_gray_gradient"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/txtStatus">
+
+            <TextView
+                android:id="@+id/lblYourIPAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginTop="@dimen/padding5"
+                android:fontFamily="@font/poppins"
+                android:text="@string/lblYourIP"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtYourIPAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strYourIP"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize16"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblYourIPAddress" />
+
+            <ImageView
+                android:layout_width="@dimen/padding48"
+                android:layout_height="wrap_content"
+                android:adjustViewBounds="true"
+                android:padding="@dimen/padding18"
+                android:src="@drawable/ic_go"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:tint="@color/colorTitleText" />
+
+            <TextView
+                android:id="@+id/lblVPNIPAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginTop="@dimen/padding5"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/lblVPNIP"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtVPNIPAddress"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginEnd="10dp"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strDash"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize16"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/txtYourIPAddress"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@id/txtYourIPAddress" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutServers"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/padding16"
+            android:background="@drawable/rounded_border"
+            android:paddingStart="@dimen/padding15"
+            android:paddingTop="@dimen/padding8"
+            android:paddingEnd="@dimen/padding8"
+            android:paddingBottom="@dimen/padding7"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutIPAddress">
+
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/imgCountryFlag"
+                android:layout_width="@dimen/padding30"
+                android:layout_height="@dimen/padding30"
+                android:src="@drawable/flag_usa"
+                app:layout_constraintBottom_toBottomOf="@id/layoutServers"
+                app:layout_constraintStart_toStartOf="@id/layoutServers"
+                app:layout_constraintTop_toTopOf="@id/layoutServers" />
+
+            <TextView
+                android:id="@+id/txtCountryName"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:fontFamily="@font/poppins"
+                android:paddingStart="@dimen/padding5"
+                android:paddingEnd="@dimen/padding5"
+                android:text="@string/strUSA1"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize15"
+                android:textStyle="bold"
+                android:visibility="visible"
+                app:layout_constraintBottom_toBottomOf="@id/imgCountryFlag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/imgCountryFlag" />
+
+            <ImageView
+                android:id="@+id/imgGo"
+                android:layout_width="@dimen/padding35"
+                android:layout_height="@dimen/padding35"
+                android:layout_marginStart="@dimen/padding20"
+                android:contentDescription="@string/app_name"
+                android:padding="@dimen/padding5"
+                android:src="@drawable/ic_go"
+                app:layout_constraintBottom_toBottomOf="@id/imgCountryFlag"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/txtCountryName"
+                app:layout_constraintTop_toTopOf="@id/imgCountryFlag"
+                app:tint="@color/colorTitleText" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutStatus"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding30"
+            android:layout_marginTop="@dimen/padding16"
+            android:layout_marginEnd="@dimen/padding30"
+            android:background="@drawable/rounded_gray_background"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutServers">
+
+            <TextView
+                android:id="@+id/lblConnectedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginTop="@dimen/padding16"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strConnectedStatus"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtConnectedStatus"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strSecured"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize18"
+                android:textStyle="bold"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/lblConnectedStatus" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgVerified"
+                android:layout_width="@dimen/padding30"
+                android:layout_height="@dimen/padding30"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginEnd="@dimen/padding10"
+                app:layout_constraintBottom_toBottomOf="@id/txtConnectedStatus"
+                app:layout_constraintStart_toEndOf="@id/txtConnectedStatus"
+                app:layout_constraintTop_toTopOf="@id/txtConnectedStatus"
+                app:lottie_autoPlay="true"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/vpn_secure" />
+
+            <View
+                android:id="@+id/div"
+                android:layout_width="1dp"
+                android:layout_height="50dp"
+                android:background="#E88F8F91"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/lblTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginTop="@dimen/padding16"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strTime"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintStart_toEndOf="@id/div"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/txtTime"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strStaticTime"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize18"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/txtConnectedStatus"
+                app:layout_constraintStart_toEndOf="@id/div"
+                app:layout_constraintTop_toTopOf="@id/txtConnectedStatus" />
+
+            <TextView
+                android:id="@+id/txtTimeInvisible"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding10"
+                android:fontFamily="@font/poppins"
+                android:text="@string/strStaticTime"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize18"
+                android:textStyle="bold"
+                android:visibility="invisible"
+                app:layout_constraintBottom_toBottomOf="@id/txtConnectedStatus"
+                app:layout_constraintStart_toEndOf="@id/div"
+                app:layout_constraintTop_toTopOf="@id/txtConnectedStatus" />
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgTime"
+                android:layout_width="@dimen/padding24"
+                android:layout_height="@dimen/padding24"
+                android:layout_marginStart="@dimen/padding10"
+                android:layout_marginEnd="@dimen/padding10"
+                app:layout_constraintStart_toEndOf="@id/txtTimeInvisible"
+                app:layout_constraintTop_toTopOf="@id/txtTimeInvisible"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/vpn_clock" />
+
+            <View
+                android:layout_width="@dimen/padding10"
+                android:layout_height="@dimen/padding16"
+                app:layout_constraintStart_toEndOf="@+id/imgTime"
+                app:layout_constraintTop_toBottomOf="@id/imgTime" />
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutDownload"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="@dimen/padding30"
+            android:layout_marginTop="@dimen/padding8"
+            android:layout_marginEnd="@dimen/padding5"
+            android:padding="@dimen/padding10"
+            app:layout_constraintEnd_toStartOf="@+id/layoutUpload"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintHorizontal_chainStyle="spread"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/layoutStatus">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgDownload"
+                android:layout_width="@dimen/padding40"
+                android:layout_height="@dimen/padding40"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/speed_download" />
+
+            <ImageView
+                android:id="@+id/imgDownloads"
+                android:layout_width="@dimen/padding30"
+                android:layout_height="@dimen/padding30"
+                android:contentDescription="@string/app_name"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_download"
+                app:tint="@color/colorPrimary" />
+
+            <TextView
+                android:id="@+id/txtDownload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding5"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/strDownload"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintBottom_toTopOf="@id/txtDownloadSpeed"
+                app:layout_constraintStart_toEndOf="@id/imgDownload"
+                app:layout_constraintTop_toTopOf="@id/imgDownload" />
+
+            <TextView
+                android:id="@+id/txtDownloadSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding5"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/strStaticSpeed"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize14"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imgDownload"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgDownload"
+                app:layout_constraintTop_toBottomOf="@id/txtDownload" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:id="@+id/layoutUpload"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="@dimen/padding20"
+            android:padding="@dimen/padding10"
+            app:layout_constraintBottom_toBottomOf="@id/layoutDownload"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.5"
+            app:layout_constraintStart_toEndOf="@+id/layoutDownload"
+            app:layout_constraintTop_toTopOf="@id/layoutDownload">
+
+            <com.airbnb.lottie.LottieAnimationView
+                android:id="@+id/imgUpload"
+                android:layout_width="@dimen/padding40"
+                android:layout_height="@dimen/padding40"
+                android:rotation="180"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:lottie_autoPlay="false"
+                app:lottie_loop="true"
+                app:lottie_rawRes="@raw/speed_up" />
+
+            <ImageView
+                android:id="@+id/imgUploads"
+                android:layout_width="@dimen/padding30"
+                android:layout_height="@dimen/padding30"
+                android:contentDescription="@string/app_name"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent"
+                app:srcCompat="@drawable/ic_upload"
+                app:tint="@color/gnt_red" />
+
+            <TextView
+                android:id="@+id/txtUpload"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding5"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/strUpload"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintBottom_toTopOf="@id/txtUploadSpeed"
+                app:layout_constraintStart_toEndOf="@id/imgUpload"
+                app:layout_constraintTop_toTopOf="@id/imgUpload" />
+
+            <TextView
+                android:id="@+id/txtUploadSpeed"
+                android:layout_width="0dp"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding5"
+                android:fontFamily="@font/poppins_semibold"
+                android:text="@string/strStaticSpeed"
+                android:textColor="@color/colorTitleText"
+                android:textSize="@dimen/textSize14"
+                android:textStyle="bold"
+                app:layout_constraintBottom_toBottomOf="@id/imgUpload"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toEndOf="@id/imgUpload"
+                app:layout_constraintTop_toBottomOf="@id/txtUpload" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <com.google.android.ads.nativetemplates.TemplateView
+            android:id="@+id/templateView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/padding16"
+            android:visibility="gone"
+            app:gnt_template_type="@layout/gnt_medium_template_view"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/layoutUpload" />
+        <!--    </androidx.constraintlayout.widget.ConstraintLayout>-->
+        <!--  </ScrollView>-->
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</androidx.core.widget.NestedScrollView>

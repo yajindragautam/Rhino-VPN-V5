@@ -1,0 +1,46 @@
+[versions]
+agp = "8.11.1"
+appcompat = "1.7.1"
+material = "1.13.0"
+constraint = "2.2.1"
+viewpager2 = "1.1.0"
+circleindicator = "2.1.6"
+lottie = "6.7.0"
+circleimageview = "3.1.0"
+googleads = "22.0.0"
+gson = "2.13.2"
+webkit = "1.4.0"
+materialDialog = "2.2.3"
+ktx = "1.17.0"
+localbroadcastmanager = "1.1.0"
+runtime = "2.11.0"
+lifeextensions = "1.1.1"
+crypto = "1.1.0"
+fastscroll = "2.1.0"
+openssl = "1.1.1q-beta-1"
+glide = "5.0.5"
+
+[libraries]
+appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
+material = { group = "com.google.android.material", name = "material", version.ref = "material" }
+constraint = {group = "androidx.constraintlayout", name = "constraintlayout", version.ref = "constraint" }
+viewpager2= {group = "androidx.viewpager2", name = "viewpager2", version.ref = "viewpager2" }
+circleindicator= {group = "me.relex", name = "circleindicator", version.ref = "circleindicator" }
+lottie = { group = "com.airbnb.android", name = "lottie", version.ref = "lottie"}
+circleimageview = { group = "de.hdodenhof", name = "circleimageview", version.ref = "circleimageview"}
+googleads = { group = "com.google.android.gms", name = "play-services-ads", version.ref = "googleads"}
+gson = { group = "com.google.code.gson", name = "gson", version.ref = "gson"}
+webkit = { group = "androidx.webkit", name = "webkit", version.ref = "webkit"}
+materialDialog = { group = "dev.shreyaspatil.MaterialDialog", name = "MaterialDialog", version.ref = "materialDialog"}
+ktx = { group = "androidx.core", name = "core-ktx", version.ref = "ktx"}
+localbroadcastmanager = { group = "androidx.localbroadcastmanager", name = "localbroadcastmanager", version.ref = "localbroadcastmanager"}
+runtime = { group = "androidx.work", name = "work-runtime", version.ref = "runtime"}
+lifeextensions = { group = "android.arch.lifecycle", name = "extensions", version.ref = "lifeextensions"}
+crypto = { group = "androidx.security", name = "security-crypto", version.ref = "crypto"}
+fastscroll = { group = "io.github.l4digital", name = "fastscroll", version.ref = "fastscroll"}
+openssl = { group = "com.android.ndk.thirdparty", name = "openssl", version.ref = "openssl"}
+glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
+
+[plugins]
+android-application = { id = "com.android.application", version.ref = "agp" }
+android-library = { id = "com.android.library", version.ref = "agp" }

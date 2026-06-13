@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/padding34"
+        android:layout_height="@dimen/padding34"
+        android:layout_margin="@dimen/padding20"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/colorTitleText" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        style="@style/toolbarTitleStyle"
+        android:layout_margin="@dimen/padding20"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/lblSplitTunnel"
+        android:textColor="@color/colorTitleText"
+        android:textSize="@dimen/textSize20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/lblDesc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding20"
+        android:layout_marginTop="@dimen/padding16"
+        android:fontFamily="@font/poppins_semibold"
+        android:text="@string/lblWhenConnectVPN"
+        android:textColor="@color/colorDarkText"
+        android:textSize="@dimen/textSize16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/txtTitle" />
+
+    <RadioGroup
+        android:id="@+id/radioGroup"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding24"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/lblDesc">
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/chkAll"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/padding30"
+            android:checked="true"
+            android:paddingStart="@dimen/padding5"
+            android:paddingEnd="0dp"
+            android:text="@string/lblAllApps"
+            android:textColor="@color/colorDarkText" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/chkSelectedNot"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/padding30"
+            android:paddingStart="@dimen/padding5"
+            android:paddingEnd="0dp"
+            android:text="@string/lblSelectedAppNot"
+            android:textColor="@color/colorDarkText" />
+
+        <com.google.android.material.radiobutton.MaterialRadioButton
+            android:id="@+id/chkOnlySelected"
+            android:layout_width="wrap_content"
+            android:layout_height="@dimen/padding30"
+            android:paddingStart="@dimen/padding5"
+            android:paddingEnd="0dp"
+            android:text="@string/lblOnlySelectedApps"
+            android:textColor="@color/colorDarkText" />
+    </RadioGroup>
+
+    <com.bytesbee.vpnapp.utils.CountAnimationTextView
+        android:id="@+id/countAnimationTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding24"
+        android:layout_marginTop="@dimen/padding24"
+        android:background="@drawable/rounded"
+        android:fontFamily="@font/poppins_semibold"
+        android:paddingStart="@dimen/padding16"
+        android:paddingTop="@dimen/padding7"
+        android:paddingEnd="@dimen/padding16"
+        android:paddingBottom="@dimen/padding5"
+        android:text="@string/lblZero"
+        android:textColor="@color/colorPrimary"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup" />
+
+    <com.google.android.material.chip.ChipGroup
+        android:id="@+id/chipGroup"
+        android:layout_width="wrap_content"
+        android:layout_height="0dp"
+        android:layout_marginStart="@dimen/padding10"
+        android:layout_marginTop="@dimen/padding16"
+        app:layout_constraintStart_toEndOf="@+id/countAnimationTextView"
+        app:layout_constraintTop_toBottomOf="@+id/radioGroup"
+        app:selectionRequired="true"
+        app:singleSelection="true">
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipAll"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:checked="true"
+            android:text="@string/lblAll" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipUser"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblUser" />
+
+        <com.google.android.material.chip.Chip
+            android:id="@+id/chipSystem"
+            style="@style/Widget.MaterialComponents.Chip.Choice"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblSystem" />
+
+    </com.google.android.material.chip.ChipGroup>
+
+    <com.l4digital.fastscroll.FastScrollRecyclerView
+        android:id="@+id/recyclerViewApp"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="@dimen/padding10"
+        app:bubbleColor="@color/colorPrimary"
+        app:bubbleTextColor="@color/colorWhite"
+        app:handleColor="@color/colorStatsGray"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/chipGroup"
+        tools:itemCount="10"
+        tools:listitem="@layout/recycler_view_item" />
+</androidx.constraintlayout.widget.ConstraintLayout>

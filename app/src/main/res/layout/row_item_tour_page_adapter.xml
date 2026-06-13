@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground">
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="@dimen/padding300"
+        android:layout_height="@dimen/padding300"
+        android:layout_marginTop="@dimen/padding30"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_rawRes="@raw/anim1"
+        app:lottie_loop="true" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding20"
+        android:layout_marginTop="@dimen/padding16"
+        android:layout_marginEnd="@dimen/padding20"
+        android:fontFamily="@font/poppins_semibold"
+        android:gravity="center"
+        android:text="@string/strTourTitle1"
+        android:textColor="@color/colorTitleText"
+        android:textSize="@dimen/textSize20"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/animationView" />
+
+    <TextView
+        android:id="@+id/txtMessage"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="@dimen/padding20"
+        android:layout_marginEnd="@dimen/padding20"
+        android:fontFamily="@font/poppins"
+        android:gravity="center"
+        android:text="@string/strTourMsg1"
+        android:textColor="@color/colorTitleText"
+        android:textSize="15sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

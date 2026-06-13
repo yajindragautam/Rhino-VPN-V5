@@ -1,0 +1,127 @@
+<resources>
+    <string name="app_name">My VPN App</string>
+    <string name="strPoweredBy">Powered by: BytesBee</string>
+    <string name="version">Version %1$s</string>
+
+    <string name="notifcation_title">BytesBee - %s</string>
+
+    <!-- OnBoarding -->
+    <string name="strTourTitle1">Browse Faster Internet</string>
+    <string name="strTourTitle2">Free Servers</string>
+    <string name="strTourTitle3">Best VPN  Unlimited Service</string>
+    <string name="strTourMsg1">Browse faster internet Free server\nand Super Fast browser</string>
+    <string name="strTourMsg2">Your Identification will be secure. Let\'s Browse now Free Servers</string>
+    <string name="strTourMsg3">VPN Unlimited is one of the best virtual private network services to protect all data, to surf web anonymously</string>
+    <string name="strSkip">Skip</string>
+    <string name="strGetStarted">GET STARTED</string>
+
+    <string name="strNavOpen">Open</string>
+    <string name="strNavClose">Close</string>
+    <string name="strRate">Give Us Star</string>
+    <string name="strPrivacyPolicy">Privacy Policy</string>
+    <string name="strTermsOfService">Terms Of Service</string>
+    <string name="strFeedback">Feedback</string>
+    <string name="strSwitchDark">Switch Dark and Light</string>
+    <string name="strTools">Network Speed</string>
+    <string name="strUsageHistory">Usage History</string>
+    <string name="strLogs">Logs</string>
+    <string name="strConnectedStatus">Connected Status</string>
+    <string name="strSecured">Secured</string>
+    <string name="strTime">Time</string>
+    <string name="strStaticTime">00:00:00</string>
+    <string name="strDisConnect">Disconnect?</string>
+    <string name="lblDisconnect">Disconnect</string>
+    <string name="strDisconnectMsg">Would you like to disconnect the current connection?</string>
+
+    <string name="strSelectServer">Select Server</string>
+    <string name="strAutoSelect">Auto Select</string>
+    <string name="strUSA1">United States 1</string>
+    <string name="strUSA2">United States 2</string>
+    <string name="strUK">United Kingdom</string>
+    <string name="strGermany">Germany</string>
+    <string name="strHongkong">Hongkong</string>
+    <string name="strJapan1">Japan 1</string>
+    <string name="strJapan2">Japan 2</string>
+    <string name="strJapan3">Japan 3</string>
+    <string name="strKorea1">Korea 1</string>
+    <string name="strKorea2">Korea 2</string>
+    <string name="strKorea3">Korea 3</string>
+    <string name="strRussia">Russia</string>
+    <string name="strVietnam">Vietnam</string>
+    <string name="strNetherlands">Netherlands</string>
+    <string name="strThailand1">Thailand 1</string>
+    <string name="strThailand2">Thailand 2</string>
+    <string name="strThailand3">Thailand 3</string>
+    <string name="strOvpUserName">vpn</string>
+    <string name="strOvpPassword">vpn</string>
+
+    <string name="strNoInternetConnectionMsg">No internet connection!. Make sure that WI-FI  or mobile data is turned on,and try again!</string>
+    <string name="strConnected">Connected successfully!</string>
+    <string name="strTapStart"><b>Tap button to start :)</b></string>
+    <string name="strWaitingMsg">Connecting to %1$s</string>
+    <string name="strAuthMsg">Getting server configuration</string>
+    <string name="strAuthFailedMsg">Failed to authorize. Try again!</string>
+    <string name="strReconnectionMsg">Reconnecting…</string>
+    <string name="strNoIntentConnection">No Internet connection</string>
+    <string name="strPermissionDeniedMsg">you have denied Permission.kindly give permission for internet connection to connect to VPN</string>
+    <!-- logs Activity -->
+    <string name="strStaticSpeed">00.00 KB/s</string>
+    <!-- Tools activity -->
+    <string name="strSpeedTest"> Internet Speed Test</string>
+    <!-- internet speed activity -->
+    <string name="strPing">Ping </string>
+    <string name="strStaticInternetSpeed">0 ms</string>
+    <string name="strStaticMbps">0 Mbps</string>
+    <string name="strDownload">Download</string>
+    <string name="strUpload">Upload</string>
+    <string name="strCalculateSpeed">Calculate Speed</string>
+    <string name="strServerSelection">Selecting best server based on ping…</string>
+    <string name="strRecalculateSpeed">Recalculate Speed</string>
+    <string name="strNoHost">There was a problem in getting Host Location. Try again later.</string>
+    <string name="strHostLocation">Host Location: %1$s!</string>
+    <string name="lblMS"> &#160;ms</string>
+    <string name="lblMbps"> &#160;Mbps</string>
+
+    <string name="press_again_to_exit">Press again to exit app</string>
+
+    <string name="strUsage">Usage</string>
+    <string name="strDataUsage">Data usage</string>
+    <string name="strToday">Today</string>
+    <string name="strNA">NA</string>
+    <string name="strUsed">Used</string>
+    <string name="strYesterday">Yesterday</string>
+    <string name="strJanuary2019">1-January-2019</string>
+    <string name="strThisWeek">This week</string>
+    <string name="strThisMonth">This month</string>
+    <string name="strTimeUsage">Time usage</string>
+    <string name="strHHMMSS">HH : MM : SS</string>
+    <string name="strTotal">Total</string>
+    <string name="strNumberOfConnections">Number of Connections</string>
+    <string name="strConnections">Connections</string>
+    <string name="str20">20</string>
+    <string name="strUsageDesc">The usage data is stored in your mobile phone. You can delete them at any time by tap on delete icon.</string>
+    <string name="strAppInstalled">App installed %1$s</string>
+    <string name="strAppVersion">App version %1$s</string>
+    <string name="strOneKB">1KB</string>
+    <string name="strFormatKB">%1$dKB</string>
+    <string name="strFormatMB">%1$dMB</string>
+
+    <string name="strDeleteTitle">Delete</string>
+    <string name="strDeleteMsg">Would you like the delete all usage history?</string>
+    <string name="lblYes">Yes</string>
+    <string name="lblNo">No</string>
+
+    <string name="lblSplitTunnel">Split Tunnel</string>
+    <string name="lblZero">0</string>
+    <string name="lblUser">User</string>
+    <string name="lblSystem">System</string>
+    <string name="lblAll">All</string>
+    <string name="lblWhenConnectVPN">When connect to VPN:</string>
+    <string name="lblAllApps">All apps uses the VPN</string>
+    <string name="lblSelectedAppNot">Selected apps will not use the VPN</string>
+    <string name="lblOnlySelectedApps">Only selected apps will use the VPN</string>
+    <string name="lblYourIP">Your IP Address</string>
+    <string name="lblVPNIP">VPN IP Address</string>
+    <string name="strYourIP">0.0.0.0</string>
+    <string name="strDash">-</string>
+</resources>

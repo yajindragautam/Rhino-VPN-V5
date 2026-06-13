@@ -1,0 +1,79 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.cardview.widget.CardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/cardView"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="@dimen/padding5"
+    android:layout_marginTop="@dimen/padding2"
+    android:layout_marginEnd="@dimen/padding5"
+    app:cardBackgroundColor="@color/colorBackground"
+    app:cardCornerRadius="@dimen/padding4"
+    app:cardElevation="@dimen/padding2"
+    app:cardUseCompatPadding="false">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constrainLayoutAppList"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        android:padding="@dimen/padding5">
+
+        <ImageView
+            android:id="@+id/app_icon"
+            android:layout_width="@dimen/padding30"
+            android:layout_height="@dimen/padding30"
+            android:contentDescription="@string/app_name"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="parent"
+            app:srcCompat="@mipmap/ic_launcher" />
+
+        <LinearLayout
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintBottom_toTopOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/switchOnOff"
+            app:layout_constraintStart_toEndOf="@id/app_icon"
+            app:layout_constraintTop_toBottomOf="parent">
+
+            <TextView
+                android:id="@+id/txtapp_name"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding8"
+                android:ellipsize="middle"
+                android:fontFamily="@font/poppins_semibold"
+                android:lines="1"
+                android:text="@string/app_name"
+                android:textColor="@color/colorDarkText"
+                android:textSize="@dimen/textSize14"
+                android:textStyle="bold" />
+
+            <TextView
+                android:id="@+id/txtapp_package"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginStart="@dimen/padding8"
+                android:ellipsize="middle"
+                android:lines="1"
+                android:text="@string/app_name"
+                android:textColor="@color/colorDarkText"
+                android:textSize="@dimen/textSize10"
+                app:layout_constraintEnd_toStartOf="@+id/switchOnOff"
+                app:layout_constraintStart_toEndOf="@id/app_icon"
+                app:layout_constraintTop_toBottomOf="@id/txtapp_name" />
+        </LinearLayout>
+
+        <androidx.appcompat.widget.SwitchCompat
+            android:id="@+id/switchOnOff"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+</androidx.cardview.widget.CardView>
+

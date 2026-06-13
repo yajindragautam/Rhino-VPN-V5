@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:background="@color/colorBackground"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.bytesbee.vpnapp.activity.InternetSpeedActivity">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/padding34"
+        android:layout_height="@dimen/padding34"
+        android:layout_margin="@dimen/padding20"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/colorTitleText" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        style="@style/toolbarTitleStyle"
+        android:layout_margin="@dimen/padding20"
+        android:fontFamily="@font/poppins_bold"
+        android:text="@string/strSpeedTest"
+        android:textColor="@color/colorTitleText"
+        android:textSize="@dimen/textSize20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/textSize20"
+        app:layout_constraintTop_toBottomOf="@id/txtTitle">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/padding150"
+            android:baselineAligned="false"
+            android:orientation="horizontal"
+            android:weightSum="3"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent">
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblPing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/padding15"
+                    android:text="@string/strPing"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textSize12"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/txtPing"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/strStaticInternetSpeed"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textSize18" />
+
+                <LinearLayout
+                    android:id="@+id/chartPing"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblDownload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/strDownload"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textSize12"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/txtDownload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/strStaticMbps"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textSize18" />
+
+                <LinearLayout
+                    android:id="@+id/chartDownload"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1"
+                android:orientation="vertical">
+
+                <TextView
+                    android:id="@+id/lblUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="15dp"
+                    android:text="@string/strUpload"
+                    android:textAlignment="center"
+                    android:textAllCaps="true"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textSize12"
+                    android:textStyle="normal" />
+
+                <TextView
+                    android:id="@+id/txtUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:fontFamily="@font/poppins_bold"
+                    android:text="@string/strStaticMbps"
+                    android:textAlignment="center"
+                    android:textColor="@color/colorTextPrimary"
+                    android:textSize="@dimen/textSize18" />
+
+                <LinearLayout
+                    android:id="@+id/chartUpload"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <ImageView
+                android:id="@+id/imgSpeedMeter"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentEnd="true"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/main_new" />
+
+            <ImageView
+                android:id="@+id/imgBar"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignParentTop="true"
+                android:layout_marginTop="-7dp"
+                android:backgroundTint="@color/colorPrimary"
+                android:contentDescription="@string/app_name"
+                app:srcCompat="@drawable/bar" />
+        </RelativeLayout>
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <Button
+        android:id="@+id/btnStart"
+        style="@style/Widget.AppCompat.Button.Colored"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorText"
+        android:elevation="0dp"
+        android:shadowRadius="15"
+        android:text="@string/strCalculateSpeed"
+        android:textAllCaps="false"
+        android:textColor="@android:color/background_light"
+        android:textSize="@dimen/textSize16"
+        app:layout_constraintBottom_toBottomOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

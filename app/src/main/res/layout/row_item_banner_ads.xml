@@ -1,0 +1,7 @@
+<com.google.android.gms.ads.AdView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:ads="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/adViewID"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    ads:adSize="BANNER"
+    ads:adUnitId="@string/banner_app_id" />

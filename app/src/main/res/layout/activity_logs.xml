@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/rootView"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBackground"
+    tools:context="com.bytesbee.vpnapp.activity.LogsActivity">
+
+    <ImageView
+        android:id="@+id/imgBack"
+        android:layout_width="@dimen/padding34"
+        android:layout_height="@dimen/padding34"
+        android:layout_margin="@dimen/padding20"
+        android:contentDescription="@string/app_name"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@drawable/ic_back"
+        app:tint="@color/colorTitleText" />
+
+    <TextView
+        android:id="@+id/txtTitle"
+        style="@style/toolbarTitleStyle"
+        android:layout_margin="@dimen/padding20"
+        android:text="@string/strLogs"
+        android:textSize="@dimen/textSize20"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/txtClear"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding16"
+        android:background="@drawable/rounded_border_background"
+        android:padding="@dimen/padding10"
+        android:paddingStart="@dimen/padding25"
+        android:paddingEnd="@dimen/padding25"
+        android:text="@string/clear"
+        android:textColor="@color/colorText"
+        android:textSize="@dimen/textSize16"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/padding10"
+        android:fillViewport="true"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/txtClear">
+
+        <TextView
+            android:id="@+id/txtLogs"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:textColor="@color/colorTitleText"
+            android:textSize="@dimen/textSize15"
+            app:layout_constraintTop_toBottomOf="@id/txtClear" />
+    </ScrollView>
+
+    <com.airbnb.lottie.LottieAnimationView
+        android:id="@+id/animationView"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/padding300"
+        android:layout_marginTop="@dimen/padding30"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:lottie_autoPlay="true"
+        app:lottie_loop="true"
+        app:lottie_rawRes="@raw/no" />
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -1,0 +1,112 @@
+plugins {
+    alias(libs.plugins.android.application)
+}
+
+ext {
+    appname = "com.bytesbee.vpnapp" //"com.android.vpnapp"
+    compileSDK = 36
+    minSDK = 24
+    targetSDK = 36
+}
+
+android {
+    namespace appname
+    compileSdkVersion compileSDK
+
+    defaultConfig {
+        applicationId appname
+        minSdk minSDK
+        targetSdk targetSDK
+        versionCode 13
+        versionName "5.0"
+        configurations.configureEach {
+            resolutionStrategy { force 'androidx.core:core-ktx:1.13.0' }
+        }
+
+        buildConfigField 'boolean', "ADS_SHOWN", "true"//true or false
+        //Test Ads Key
+        resValue 'string', "main_app_id", "ca-app-pub-3940256099942544~3347511713"
+        resValue 'string', "banner_app_id", "ca-app-pub-3940256099942544/6300978111"
+        resValue 'string', "interstitial_app_id", "ca-app-pub-3940256099942544/1033173712"
+        resValue 'string', "native_app_id", "ca-app-pub-3940256099942544/2247696110"
+        resValue 'string', "app_open_id", "ca-app-pub-3940256099942544/3419835294"
+        resValue 'string', 'feedback_email', "yourmail@gmail.com"
+    }
+
+    buildTypes {
+        debug {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+        release {
+            minifyEnabled false
+            shrinkResources false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_17
+        targetCompatibility JavaVersion.VERSION_17
+    }
+
+    packagingOptions {
+        jniLibs {
+            useLegacyPackaging true
+        }
+    }
+    bundle {
+        abi {
+            enableSplit false
+        }
+    }
+    buildFeatures {
+        buildConfig true
+        aidl true
+    }
+//    lint {
+//        baseline = file("lint-baseline.xml")
+//    }
+    lint {
+        abortOnError(false)
+        checkReleaseBuilds(false)
+        ignoreWarnings(true)
+        disable 'OldTargetApi', 'GradleDependency', 'GradleDynamicVersion'
+    }
+
+    configurations.configureEach {
+        resolutionStrategy.eachDependency { details ->
+            if (details.requested.group == "org.jetbrains.kotlin") {
+                details.useVersion "1.8.22"
+            }
+        }
+    }
+}
+
+dependencies {
+    implementation project(':nativetemplates')
+    implementation files('libs/achartengine-1.2.0.jar')
+    implementation project(':rating-library')
+
+    implementation(libs.appcompat)
+    implementation(libs.material)
+    implementation(libs.constraint)
+    implementation(libs.viewpager2)
+    implementation(libs.circleindicator)
+    implementation(libs.lottie)
+    implementation(libs.circleimageview)
+    implementation(libs.googleads)
+    implementation(libs.gson)
+    implementation(libs.webkit)
+    implementation(libs.materialDialog)
+    implementation(libs.ktx)
+    implementation(libs.localbroadcastmanager)
+    implementation(libs.runtime)
+    implementation(libs.lifeextensions)
+    implementation(libs.crypto)
+    implementation(libs.fastscroll)
+    implementation(libs.openssl)
+    implementation(libs.glide)
+    implementation "androidx.core:core:1.13.0" // or higher
+}

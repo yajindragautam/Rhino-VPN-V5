@@ -1,0 +1,57 @@
+<resources>
+    <!-- Base application theme. -->
+    <style name="Theme.VPNApp" parent="Theme.MaterialComponents.DayNight.NoActionBar">
+        <!-- Primary brand color. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorBackground</item>
+        <item name="colorOnPrimary">@color/colorWhite</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:fontFamily">@font/poppins</item>
+
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorSecondaryVariant">@color/colorPrimary</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="android:actionBarDivider">@android:color/transparent</item>
+
+        <item name="material_dialog_background">#C9000000</item>
+        <item name="material_dialog_title_text_color">@color/colorTitleText</item>
+        <item name="material_dialog_message_text_color">@color/colorTitleText</item>
+        <item name="material_dialog_positive_button_color">@color/colorPrimary</item>
+        <item name="material_dialog_positive_button_text_color">#FFFFFF</item>
+        <item name="material_dialog_negative_button_text_color">@color/colorPrimary</item>
+<!--        <item name="android:fitsSystemWindows">true</item>-->
+    </style>
+
+
+    <style name="AppTheme" parent="Theme.MaterialComponents.Light.NoActionBar">
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryVariant">@color/colorBackground</item>
+        <item name="colorSecondary">@color/colorPrimary</item>
+        <item name="colorSecondaryVariant">@color/colorPrimary</item>
+        <item name="colorOnPrimary">@color/gnt_black</item>
+        <item name="colorAccent">@color/colorPrimary</item>
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+        <item name="colorControlNormal">@android:color/black</item><!-- 👈 Force arrow color -->
+
+        <item name="android:fontFamily">@font/poppins</item>
+
+        <item name="material_dialog_background">@color/colorBackground</item>
+        <item name="material_dialog_title_text_color">@color/colorTitleText</item>
+        <item name="material_dialog_message_text_color">@color/colorTitleText</item>
+        <item name="material_dialog_positive_button_color">@color/colorPrimary</item>
+        <item name="material_dialog_positive_button_text_color">#FFFFFF</item>
+        <item name="material_dialog_negative_button_text_color">@color/colorPrimary</item>
+    </style>
+
+    <style name="toolbarTitleStyle" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:textColor">@color/colorTitleText</item>
+        <item name="android:textSize">@dimen/textSize16</item>
+        <item name="android:textStyle">bold</item>
+    </style>
+</resources>

@@ -1,0 +1,42 @@
+<resources>
+    <!--PADDING-->
+    <dimen name="padding2">2dp</dimen>
+    <dimen name="padding4">4dp</dimen>
+    <dimen name="padding5">5dp</dimen>
+    <dimen name="padding7">7dp</dimen>
+    <dimen name="padding8">8dp</dimen>
+    <dimen name="padding10">10dp</dimen>
+    <dimen name="padding15">15dp</dimen>
+    <dimen name="padding16">16dp</dimen>
+    <dimen name="padding18">18dp</dimen>
+    <dimen name="padding20">20dp</dimen>
+    <dimen name="padding22">22dp</dimen>
+    <dimen name="padding24">24dp</dimen>
+    <dimen name="padding25">25dp</dimen>
+    <dimen name="padding30">30dp</dimen>
+    <dimen name="padding32">32dp</dimen>
+    <dimen name="padding34">34dp</dimen>
+    <dimen name="padding35">35dp</dimen>
+    <dimen name="padding40">40dp</dimen>
+    <dimen name="padding48">48dp</dimen>
+    <dimen name="padding50">50dp</dimen>
+    <dimen name="padding70">70dp</dimen>
+    <dimen name="padding80">80dp</dimen>
+    <dimen name="padding100">100dp</dimen>
+    <dimen name="padding150">150dp</dimen>
+    <dimen name="padding170">170dp</dimen>
+    <dimen name="padding185">185dp</dimen>
+    <dimen name="padding200">190dp</dimen>
+    <dimen name="padding300">300dp</dimen>
+
+    <!-- text size -->
+    <dimen name="textSize10">10sp</dimen>
+    <dimen name="textSize12">12sp</dimen>
+    <dimen name="textSize13">13sp</dimen>
+    <dimen name="textSize14">14sp</dimen>
+    <dimen name="textSize15">15sp</dimen>
+    <dimen name="textSize16">16sp</dimen>
+    <dimen name="textSize18">18sp</dimen>
+    <dimen name="textSize20">20sp</dimen>
+    <dimen name="textSize24">24sp</dimen>
+</resources>

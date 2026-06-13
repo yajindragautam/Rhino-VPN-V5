@@ -1,9 +1,9 @@
 <resources>
-    <string name="app_name">My VPN App</string>
-    <string name="strPoweredBy">Powered by: BytesBee</string>
+    <string name="app_name">Rhino VPN</string>
+    <string name="strPoweredBy">Powered by: yaji</string>
     <string name="version">Version %1$s</string>
 
-    <string name="notifcation_title">BytesBee - %s</string>
+    <string name="notifcation_title">Rhino VPN - %s</string>
 
     <!-- OnBoarding -->
     <string name="strTourTitle1">Browse Faster Internet</string>

@@ -253,12 +253,13 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         final List<Server> temp = new ArrayList<>();
         temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
-        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "us2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-
-        temp.add(new Server(getString(R.string.strUK), R.drawable.flag_uk, "uk1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strGermany), R.drawable.flag_germany, "germany1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strHongkong), R.drawable.flag_hongkong, "hongkong1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "us2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//
+//        temp.add(new Server(getString(R.string.strUK), R.drawable.flag_uk, "uk1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strGermany), R.drawable.flag_germany, "germany1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//
+//        temp.add(new Server(getString(R.string.strHongkong), R.drawable.flag_hongkong, "hongkong1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
         temp.add(new Server(getString(R.string.strJapan1), R.drawable.flag_japan, "japan1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan2), R.drawable.flag_japan, "japan2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
@@ -268,9 +269,10 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         temp.add(new Server(getString(R.string.strKorea2), R.drawable.flag_korea, "korea2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strKorea3), R.drawable.flag_korea, "korea3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
-        temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strThailand1), R.drawable.flag_thailand, "thailand1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strThailand2), R.drawable.flag_thailand, "thailand2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strThailand2), R.drawable.flag_thailand, "thailand2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
         temp.add(new Server(getString(R.string.strVietnam), R.drawable.flag_vietnam, "vietnam1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 

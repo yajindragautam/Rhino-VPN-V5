@@ -254,28 +254,31 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         final List<Server> temp = new ArrayList<>();
         temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
-        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
 //        temp.add(new Server(getString(R.string.strUK), R.drawable.flag_uk, "uk1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 //        temp.add(new Server(getString(R.string.strGermany), R.drawable.flag_germany, "germany1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 //
-//        temp.add(new Server(getString(R.string.strHongkong), R.drawable.flag_hongkong, "hongkong1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        // ✅ VPNBook servers — pass empty credentials, will be fetched dynamically
+        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+//        temp.add(new Server(getString(R.string.strUK),   R.drawable.flag_uk,  "uk1-vpnbook.ovpn", "", "", Server.TYPE_VPNBOOK));
 
+
+        // ✅ VPNGate servers — use static credentials from strings.xml, no type needed (default)
+//        temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan1), R.drawable.flag_japan, "japan1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan2), R.drawable.flag_japan, "japan2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan3), R.drawable.flag_japan, "japan3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-
         temp.add(new Server(getString(R.string.strKorea1), R.drawable.flag_korea, "korea1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strKorea2), R.drawable.flag_korea, "korea2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strKorea3), R.drawable.flag_korea, "korea3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-
         temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strThailand1), R.drawable.flag_thailand, "thailand1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-//        temp.add(new Server(getString(R.string.strThailand2), R.drawable.flag_thailand, "thailand2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-
         temp.add(new Server(getString(R.string.strVietnam), R.drawable.flag_vietnam, "vietnam1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+
 
         return temp;
     }
@@ -462,7 +465,6 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
                     BufferedReader br = new BufferedReader(isr);
                     StringBuilder config = new StringBuilder();
                     String line;
-
                     while (true) {
                         line = br.readLine();
                         if (line == null) break;
@@ -489,82 +491,90 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
                     Utils.getErrors(e);
                 }
 
-                // ✅ Capture final reference for use inside callback
                 final Server finalAutoSelect = autoSelect;
 
-                // ✅ Fetch fresh credentials from your Node.js backend
-                VPNCredentialManager.fetchCredentials(new VPNCredentialManager.CredentialCallback() {
-                    @Override
-                    public void onSuccess(String username, String password) {
-                        // ✅ Cache for offline fallback
-                        SessionManager.get().setVpnCredentials(username, password);
+                // ✅ KEY LOGIC: Branch based on server type
+                if (finalAutoSelect != null &&
+                        Server.TYPE_VPNBOOK.equals(finalAutoSelect.getServerType())) {
 
-                        runOnUiThread(() -> {
-                            try {
-                                vpnProfile.mUsername = username;
-                                vpnProfile.mPassword = password;
+                    // 🔄 VPNBook: fetch dynamic credentials from your backend
+                    hideShowLoading(true);
+                    VPNCredentialManager.fetchCredentials(new VPNCredentialManager.CredentialCallback() {
+                        @Override
+                        public void onSuccess(String username, String password) {
+                            // Cache for offline fallback
+                            SessionManager.get().setVpnCredentials(username, password);
 
-                                Intent intent = VpnService.prepare(mActivity);
-                                if (intent != null)
-                                    resultLauncher.launch(intent);
-                                else
-                                    startVpn();
-
-                                if (finalAutoSelect != null) {
-                                    txtCountryName.setText(finalAutoSelect.getCountry());
+                            runOnUiThread(() -> {
+                                try {
+                                    vpnProfile.mUsername = username;
+                                    vpnProfile.mPassword = password;
+                                    launchVpn(finalAutoSelect);
+                                } catch (Exception e) {
+                                    Utils.getErrors(e);
                                 }
-                                txtStatus.setText(getString(R.string.strWaitingMsg, txtCountryName.getText()));
-                                txtStatus.setTextColor(getResources().getColor(R.color.colorTitleText));
-                                hideShowLoading(true);
+                            });
+                        }
 
-                            } catch (Exception e) {
-                                Utils.getErrors(e);
-                            }
-                        });
+                        @Override
+                        public void onFailure(String error) {
+                            runOnUiThread(() -> {
+                                try {
+                                    // Try cached credentials
+                                    String cachedUser = SessionManager.get().getVpnUsername();
+                                    String cachedPass = SessionManager.get().getVpnPassword();
+
+                                    if (cachedPass != null) {
+                                        vpnProfile.mUsername = cachedUser;
+                                        vpnProfile.mPassword = cachedPass;
+                                        launchVpn(finalAutoSelect);
+                                    } else {
+                                        hideShowLoading(false);
+                                        Utils.showToast(mActivity, "Failed to fetch VPNBook credentials. Try again.");
+                                    }
+                                } catch (Exception e) {
+                                    Utils.getErrors(e);
+                                }
+                            });
+                        }
+                    });
+
+                } else {
+                    // ✅ VPNGate: use static credentials directly — no API call needed
+                    try {
+                        vpnProfile.mUsername = finalAutoSelect.getOvpnUserName();
+                        vpnProfile.mPassword = finalAutoSelect.getOvpnUserPassword();
+                        launchVpn(finalAutoSelect);
+                    } catch (Exception e) {
+                        Utils.getErrors(e);
                     }
-
-                    @Override
-                    public void onFailure(String error) {
-                        runOnUiThread(() -> {
-                            try {
-                                // ✅ Fallback to cached credentials from SessionManager
-                                String cachedUser = SessionManager.get().getVpnUsername();
-                                String cachedPass = SessionManager.get().getVpnPassword();
-
-                                if (cachedPass != null) {
-                                    vpnProfile.mUsername = cachedUser;
-                                    vpnProfile.mPassword = cachedPass;
-                                } else {
-                                    // Last resort: use the static credentials from Server object
-                                    vpnProfile.mUsername = finalAutoSelect.getOvpnUserName();
-                                    vpnProfile.mPassword = finalAutoSelect.getOvpnUserPassword();
-                                }
-
-                                Intent intent = VpnService.prepare(mActivity);
-                                if (intent != null)
-                                    resultLauncher.launch(intent);
-                                else
-                                    startVpn();
-
-                                if (finalAutoSelect != null) {
-                                    txtCountryName.setText(finalAutoSelect.getCountry());
-                                }
-                                txtStatus.setText(getString(R.string.strWaitingMsg, txtCountryName.getText()));
-                                txtStatus.setTextColor(getResources().getColor(R.color.colorTitleText));
-                                hideShowLoading(true);
-
-                            } catch (Exception e) {
-                                Utils.getErrors(e);
-                            }
-                        });
-                    }
-                });
+                }
 
             } else {
                 Utils.showToast(mActivity, getString(R.string.strNoInternetConnectionMsg));
             }
         } else {
             stopVpn();
+        }
+    }
+
+    // ✅ Extracted helper to avoid duplicate launch code
+    private void launchVpn(Server autoSelect) {
+        try {
+            Intent intent = VpnService.prepare(mActivity);
+            if (intent != null)
+                resultLauncher.launch(intent);
+            else
+                startVpn();
+
+            if (autoSelect != null) {
+                txtCountryName.setText(autoSelect.getCountry());
+            }
+            txtStatus.setText(getString(R.string.strWaitingMsg, txtCountryName.getText()));
+            txtStatus.setTextColor(getResources().getColor(R.color.colorTitleText));
+            hideShowLoading(true);
+        } catch (Exception e) {
+            Utils.getErrors(e);
         }
     }
 

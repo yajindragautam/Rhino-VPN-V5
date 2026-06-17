@@ -8,6 +8,11 @@ public class Server {
     private String ovpnUserName;
     private String ovpnUserPassword;
 
+    // ✅ Add this
+    private String serverType;
+    public static final String TYPE_VPNGATE = "vpngate";
+    public static final String TYPE_VPNBOOK = "vpnbook";
+
     public Server() {
     }
 
@@ -28,7 +33,23 @@ public class Server {
         this.ovpn = ovpn;
         this.ovpnUserName = ovpnUserName;
         this.ovpnUserPassword = ovpnUserPassword;
+        this.serverType = TYPE_VPNGATE; // ✅ default is VPNGate
     }
+
+    // ✅ New constructor with serverType
+    public Server(String country, int flagIcon, String ovpn, String ovpnUserName, String ovpnUserPassword, String serverType) {
+        this.country = country;
+        this.flagIcon = flagIcon;
+        this.ovpn = ovpn;
+        this.ovpnUserName = ovpnUserName;
+        this.ovpnUserPassword = ovpnUserPassword;
+        this.serverType = serverType;
+    }
+
+    // ✅ Add getter/setter
+    public String getServerType() { return serverType; }
+    public void setServerType(String serverType) { this.serverType = serverType; }
+
 
     public int getIndex() {
         return index;

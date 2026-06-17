@@ -115,9 +115,9 @@ public class VpnProfile implements Serializable, Cloneable {
     private static final String EXTRA_SALTLEN = "de.blinkt.openvpn.api.SALTLEN";
     private static final String EXTRA_NEEDS_DIGEST = "de.blinkt.openvpn.api.NEEDS_DIGEST";
     private static final String EXTRA_DIGEST = "de.blinkt.openvpn.api.DIGEST";
-    public static final String DEFAULT_DNS1 = "9.9.9.9";
-    public static final String DEFAULT_DNS2 = "2620:fe::fe";
-    // variable named wrong and should haven beeen transient
+    public static final String DEFAULT_DNS1 = "8.8.8.8";
+    public static final String DEFAULT_DNS2 = "8.8.4.4";
+    // variable named wrong and should haven beeen transient "9.9.9.9" "2620:fe::fe"
     // but needs to keep wrong name to guarante loading of old
     // profiles
     public final transient boolean profileDeleted = false;
@@ -137,7 +137,7 @@ public class VpnProfile implements Serializable, Cloneable {
     public String mDNS2 = DEFAULT_DNS2;
     public String mIPv4Address;
     public String mIPv6Address;
-    public boolean mOverrideDNS = false;
+    public boolean mOverrideDNS = true;
     public String mSearchDomain = "blinkt.de";
     public boolean mUseDefaultRoute = true;
     public boolean mUsePull = true;

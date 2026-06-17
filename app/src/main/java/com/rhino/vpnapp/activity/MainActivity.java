@@ -252,22 +252,27 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
 
     public List<Server> addList() {
         final List<Server> temp = new ArrayList<>();
-        temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "vpnbook-us16-udp53.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
-//        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-//        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-
-//        temp.add(new Server(getString(R.string.strUK), R.drawable.flag_uk, "uk1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 //        temp.add(new Server(getString(R.string.strGermany), R.drawable.flag_germany, "germany1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-//
         // ✅ VPNBook servers — pass empty credentials, will be fetched dynamically
         temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", "", "", Server.TYPE_VPNBOOK));
         temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
-//        temp.add(new Server(getString(R.string.strUK),   R.drawable.flag_uk,  "uk1-vpnbook.ovpn", "", "", Server.TYPE_VPNBOOK));
+
+        temp.add(new Server(getString(R.string.strUK1), R.drawable.flag_uk, "vpnbook-uk68-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strUK2), R.drawable.flag_uk, "vpnbook-uk205-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+
+        temp.add(new Server(getString(R.string.strCanada1), R.drawable.flag_canada, "vpnbook-ca149-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strCanada2), R.drawable.flag_canada, "vpnbook-ca196-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+
+        temp.add(new Server(getString(R.string.strGermany1), R.drawable.flag_germany, "vpnbook-de20-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strGermany1), R.drawable.flag_germany, "vpnbook-de220-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+
+        temp.add(new Server(getString(R.string.strFrance1), R.drawable.flag_france, "vpnbook-fr200-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strFrance2), R.drawable.flag_france, "vpnbook-fr2311-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
 
 
         // ✅ VPNGate servers — use static credentials from strings.xml, no type needed (default)
-//        temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan1), R.drawable.flag_japan, "japan1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan2), R.drawable.flag_japan, "japan2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan3), R.drawable.flag_japan, "japan3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
@@ -424,6 +429,12 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
                     bypassPackages = SessionManager.get().getPackageList(KEY_ONLY_SELECT);
                     vpnProfile.mAllowedAppsVpnAreDisallowed = false;
                 }
+                // ✅ Add this check — if no apps selected, route ALL traffic
+                if (bypassPackages == null || bypassPackages.isEmpty()) {
+                    vpnProfile.mAllowedAppsVpn.clear();
+                    vpnProfile.mAllowAppVpnBypass = false;  // ✅ No bypass
+                    vpnProfile.mAllowedAppsVpnAreDisallowed = true;
+                }
             } catch (Exception e) {
                 Utils.getErrors(e);
             }
@@ -469,8 +480,14 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
                         line = br.readLine();
                         if (line == null) break;
                         config.append(line).append("\n");
+
                     }
+                    // ✅ Add these lines after reading the file
+                    config.append("redirect-gateway def1 bypass-dhcp").append("\n");
+                    config.append("dhcp-option DNS 8.8.8.8").append("\n");
+                    config.append("dhcp-option DNS 8.8.4.4").append("\n");
                     config.append("--data-ciphers DEFAULT:AES-128-CBC").append("\n");
+//                    config.append("--data-ciphers DEFAULT:AES-128-CBC").append("\n");
                     br.readLine();
 
                     ConfigParser configParser = new ConfigParser();

@@ -37,8 +37,14 @@
     <string name="strAutoSelect">Auto Select</string>
     <string name="strUSA1">United States 1</string>
     <string name="strUSA2">United States 2</string>
-    <string name="strUK">United Kingdom</string>
-    <string name="strGermany">Germany</string>
+    <string name="strUK1">United Kingdom 1</string>
+    <string name="strUK2">United Kingdom 2</string>
+    <string name="strCanada1">Canada 1</string>
+    <string name="strCanada2">Canada 2</string>
+    <string name="strGermany1">Germany 1</string>
+    <string name="strGermany2">Germany 2</string>
+    <string name="strFrance1">France 1</string>
+    <string name="strFrance2">France 2</string>
     <string name="strHongkong">Hongkong</string>
     <string name="strJapan1">Japan 1</string>
     <string name="strJapan2">Japan 2</string>

@@ -30,6 +30,8 @@ public class SessionManager {
     public static final String KEY_SELECT_NOT = "selectAppsNot";
     public static final String KEY_ONLY_SELECT = "onlySelectApps";
 
+    private static final String KEY_VPN_USERNAME = "vpn";
+    private static final String KEY_VPN_PASSWORD = "vpn";
     //============== START
     private static SessionManager mInstance;
 
@@ -144,6 +146,26 @@ public class SessionManager {
         editor.putString(key, json);
         editor.apply();
     }
+
+    public void setVpnCredentials(String username, String password) {
+        if (pref == null) return;
+        pref.edit()
+                .putString(KEY_VPN_USERNAME, username)
+                .putString(KEY_VPN_PASSWORD, password)
+                .apply();
+    }
+
+    public String getVpnUsername() {
+        if (pref == null) return null;
+        return pref.getString(KEY_VPN_USERNAME, null);
+    }
+
+    public String getVpnPassword() {
+        if (pref == null) return null;
+        return pref.getString(KEY_VPN_PASSWORD, null);
+    }
+
+
 
     public HashMap<String, String> getHashMap(String key) {
         Gson gson = new Gson();

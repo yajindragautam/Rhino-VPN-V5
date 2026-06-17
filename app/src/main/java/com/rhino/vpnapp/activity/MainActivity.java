@@ -54,6 +54,7 @@ import com.rhino.vpnapp.adapter.NavigationAdapter;
 import com.rhino.vpnapp.constants.IConstants;
 import com.rhino.vpnapp.managers.SessionManager;
 import com.rhino.vpnapp.managers.UsageManager;
+import com.rhino.vpnapp.managers.VPNCredentialManager;
 import com.rhino.vpnapp.models.IPModel;
 import com.rhino.vpnapp.models.Navigation;
 import com.rhino.vpnapp.models.Server;
@@ -253,9 +254,9 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         final List<Server> temp = new ArrayList<>();
         temp.add(new Server(getString(R.string.strAutoSelect), R.drawable.ic_auto_select, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 
-//        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "us1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-//        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "us2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-//
+        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+
 //        temp.add(new Server(getString(R.string.strUK), R.drawable.flag_uk, "uk1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 //        temp.add(new Server(getString(R.string.strGermany), R.drawable.flag_germany, "germany1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
 //
@@ -445,7 +446,6 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
     private void prepareVpn() {
         if (!vpnStart && !isBegin) {
             if (Utils.checkInternetConnection(mActivity)) {
-                //Added by Prashant - START
                 Server autoSelect = null;
                 try {
                     if (server.getCountry().equalsIgnoreCase(getString(R.string.strAutoSelect))) {
@@ -455,8 +455,9 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
                     } else {
                         autoSelect = server;
                     }
+
                     Utils.sout("Server Name:: " + autoSelect.getCountry() + " >> " + autoSelect.getIndex());
-                    InputStream conf = getAssets().open(autoSelect.getOvpn());// .ovpn file
+                    InputStream conf = getAssets().open(autoSelect.getOvpn());
                     InputStreamReader isr = new InputStreamReader(conf);
                     BufferedReader br = new BufferedReader(isr);
                     StringBuilder config = new StringBuilder();
@@ -477,31 +478,88 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
                     if (vpnProfile.checkProfile(mActivity) != R.string.no_error_found) {
                         throw new RemoteException(getString(vpnProfile.checkProfile(mActivity)));
                     }
+
                     vpnProfile.mName = autoSelect.getCountry();
                     vpnProfile.mProfileCreator = mActivity.getPackageName();
-                    vpnProfile.mUsername = autoSelect.getOvpnUserName();
-                    vpnProfile.mPassword = autoSelect.getOvpnUserPassword();
                     vpnProfile.mDNS1 = VpnProfile.DEFAULT_DNS1;
                     vpnProfile.mDNS2 = VpnProfile.DEFAULT_DNS2;
-
                     vpnProfile.mOverrideDNS = true;
+
                 } catch (Exception e) {
                     Utils.getErrors(e);
                 }
-                //Added by Prashant - END
 
-                Intent intent = VpnService.prepare(mActivity);
-                if (intent != null)
-                    resultLauncher.launch(intent);
-                else
-                    startVpn();//have already permission
+                // ✅ Capture final reference for use inside callback
+                final Server finalAutoSelect = autoSelect;
 
-                if (autoSelect != null) {
-                    txtCountryName.setText(autoSelect.getCountry());
-                }
-                txtStatus.setText(getString(R.string.strWaitingMsg, txtCountryName.getText()));
-                txtStatus.setTextColor(getResources().getColor(R.color.colorTitleText));
-                hideShowLoading(true);
+                // ✅ Fetch fresh credentials from your Node.js backend
+                VPNCredentialManager.fetchCredentials(new VPNCredentialManager.CredentialCallback() {
+                    @Override
+                    public void onSuccess(String username, String password) {
+                        // ✅ Cache for offline fallback
+                        SessionManager.get().setVpnCredentials(username, password);
+
+                        runOnUiThread(() -> {
+                            try {
+                                vpnProfile.mUsername = username;
+                                vpnProfile.mPassword = password;
+
+                                Intent intent = VpnService.prepare(mActivity);
+                                if (intent != null)
+                                    resultLauncher.launch(intent);
+                                else
+                                    startVpn();
+
+                                if (finalAutoSelect != null) {
+                                    txtCountryName.setText(finalAutoSelect.getCountry());
+                                }
+                                txtStatus.setText(getString(R.string.strWaitingMsg, txtCountryName.getText()));
+                                txtStatus.setTextColor(getResources().getColor(R.color.colorTitleText));
+                                hideShowLoading(true);
+
+                            } catch (Exception e) {
+                                Utils.getErrors(e);
+                            }
+                        });
+                    }
+
+                    @Override
+                    public void onFailure(String error) {
+                        runOnUiThread(() -> {
+                            try {
+                                // ✅ Fallback to cached credentials from SessionManager
+                                String cachedUser = SessionManager.get().getVpnUsername();
+                                String cachedPass = SessionManager.get().getVpnPassword();
+
+                                if (cachedPass != null) {
+                                    vpnProfile.mUsername = cachedUser;
+                                    vpnProfile.mPassword = cachedPass;
+                                } else {
+                                    // Last resort: use the static credentials from Server object
+                                    vpnProfile.mUsername = finalAutoSelect.getOvpnUserName();
+                                    vpnProfile.mPassword = finalAutoSelect.getOvpnUserPassword();
+                                }
+
+                                Intent intent = VpnService.prepare(mActivity);
+                                if (intent != null)
+                                    resultLauncher.launch(intent);
+                                else
+                                    startVpn();
+
+                                if (finalAutoSelect != null) {
+                                    txtCountryName.setText(finalAutoSelect.getCountry());
+                                }
+                                txtStatus.setText(getString(R.string.strWaitingMsg, txtCountryName.getText()));
+                                txtStatus.setTextColor(getResources().getColor(R.color.colorTitleText));
+                                hideShowLoading(true);
+
+                            } catch (Exception e) {
+                                Utils.getErrors(e);
+                            }
+                        });
+                    }
+                });
+
             } else {
                 Utils.showToast(mActivity, getString(R.string.strNoInternetConnectionMsg));
             }

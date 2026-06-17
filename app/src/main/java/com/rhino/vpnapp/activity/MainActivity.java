@@ -266,7 +266,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         temp.add(new Server(getString(R.string.strCanada2), R.drawable.flag_canada, "vpnbook-ca196-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
 
         temp.add(new Server(getString(R.string.strGermany1), R.drawable.flag_germany, "vpnbook-de20-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
-        temp.add(new Server(getString(R.string.strGermany1), R.drawable.flag_germany, "vpnbook-de220-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strGermany2), R.drawable.flag_germany, "vpnbook-de20-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
 
         temp.add(new Server(getString(R.string.strFrance1), R.drawable.flag_france, "vpnbook-fr200-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
         temp.add(new Server(getString(R.string.strFrance2), R.drawable.flag_france, "vpnbook-fr2311-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
@@ -276,7 +276,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         temp.add(new Server(getString(R.string.strJapan1), R.drawable.flag_japan, "japan1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan2), R.drawable.flag_japan, "japan2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan3), R.drawable.flag_japan, "japan3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strKorea1), R.drawable.flag_korea, "korea1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strKorea1), R.drawable.flag_korea, "korea1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strKorea2), R.drawable.flag_korea, "korea2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strKorea3), R.drawable.flag_korea, "korea3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));

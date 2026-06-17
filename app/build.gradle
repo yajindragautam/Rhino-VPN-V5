@@ -25,12 +25,12 @@ android {
 
         buildConfigField 'boolean', "ADS_SHOWN", "true"//true or false
         //Test Ads Key
-        resValue 'string', "main_app_id", "ca-app-pub-3940256099942544~3347511713"
-        resValue 'string', "banner_app_id", "ca-app-pub-3940256099942544/6300978111"
-        resValue 'string', "interstitial_app_id", "ca-app-pub-3940256099942544/1033173712"
-        resValue 'string', "native_app_id", "ca-app-pub-3940256099942544/2247696110"
-        resValue 'string', "app_open_id", "ca-app-pub-3940256099942544/3419835294"
-        resValue 'string', 'feedback_email', "yourmail@gmail.com"
+        resValue 'string', "main_app_id", "ca-app-pub-4324936595385675~4572282704"
+        resValue 'string', "banner_app_id", "ca-app-pub-4324936595385675/3164794938"
+        resValue 'string', "interstitial_app_id", "ca-app-pub-4324936595385675/5025842372"
+        resValue 'string', "native_app_id", "ca-app-pub-4324936595385675/7790435654"
+        resValue 'string', "app_open_id", "ca-app-pub-4324936595385675/1565109510"
+        resValue 'string', 'feedback_email', "manish.mg698@gmail.com"
     }
 
     buildTypes {

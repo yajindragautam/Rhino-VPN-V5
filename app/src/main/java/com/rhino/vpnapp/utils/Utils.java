@@ -13,7 +13,6 @@ import android.net.NetworkInfo;
 import android.os.Handler;
 import android.os.Message;
 import android.util.Log;
-import android.view.View;
 import android.webkit.WebView;
 import android.widget.Toast;
 
@@ -26,16 +25,10 @@ import androidx.webkit.WebViewFeature;
 import com.rhino.vpnapp.BuildConfig;
 import com.rhino.vpnapp.R;
 import com.rhino.vpnapp.constants.IConstants;
+import com.facebook.ads.NativeAdLayout;
+import com.rhino.vpnapp.managers.AdManager;
 import com.rhino.vpnapp.managers.Screens;
 import com.google.android.ads.nativetemplates.TemplateView;
-import com.google.android.gms.ads.AdError;
-import com.google.android.gms.ads.AdListener;
-import com.google.android.gms.ads.AdLoader;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.FullScreenContentCallback;
-import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.interstitial.InterstitialAd;
-import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 import java.util.Random;
 
@@ -63,68 +56,15 @@ public class Utils {
      * @param template  which holds the advertisement
      */
     public static void initNativeAds(Activity mActivity, TemplateView template) {
-        if (BuildConfig.ADS_SHOWN) {
-            AdLoader adLoader = new AdLoader.Builder(mActivity, mActivity.getString(R.string.native_app_id))
-                    .forNativeAd(template::setNativeAd).withAdListener(new AdListener() {
-                        @Override
-                        public void onAdClosed() {
-                            super.onAdClosed();
-//                            Utils.sout("onAdClosed: ");
-                        }
-
-                        @Override
-                        public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                            super.onAdFailedToLoad(loadAdError);
-//                            Utils.sout("onAdFailedToLoad: ");
-                        }
-
-                        @Override
-                        public void onAdOpened() {
-//                            Utils.sout("onAdOpened: ");
-                            super.onAdOpened();
-                        }
-
-                        @Override
-                        public void onAdLoaded() {
-                            template.setVisibility(View.VISIBLE);
-                            super.onAdLoaded();
-                        }
-
-                        @Override
-                        public void onAdClicked() {
-//                            Utils.sout("onAdClicked: ");
-                            super.onAdClicked();
-                        }
-
-                        @Override
-                        public void onAdImpression() {
-                            super.onAdImpression();
-                        }
-                    })
-                    .build();
-
-            adLoader.loadAd(new AdRequest.Builder().build());
-        }
+        AdManager.get().loadNativeAd(mActivity, template, null);
     }
 
-    private static InterstitialAd mInterstitialAd;
+    public static void initNativeAds(Activity mActivity, TemplateView template, NativeAdLayout fbNativeLayout) {
+        AdManager.get().loadNativeAd(mActivity, template, fbNativeLayout);
+    }
 
     public static void firstLoadAds(Activity mActivity) {
-        if (BuildConfig.ADS_SHOWN) {
-            InterstitialAd.load(mActivity, mActivity.getString(R.string.interstitial_app_id), new AdRequest.Builder().build(), new InterstitialAdLoadCallback() {
-                @Override
-                public void onAdLoaded(@NonNull InterstitialAd interstitialAd) {
-                    super.onAdLoaded(interstitialAd);
-                    mInterstitialAd = interstitialAd;
-                }
-
-                @Override
-                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                    // Handle the error
-                    mInterstitialAd = null;
-                }
-            });
-        }
+        AdManager.get().loadInterstitial(mActivity);
     }
 
     private static int LAUNCH_ADS = 1;
@@ -139,29 +79,17 @@ public class Utils {
     }
 
     public static void showIntAds(final Activity mActivity, final Class cls, final int what, final Handler handler) {
-        if (BuildConfig.ADS_SHOWN) {
-            if (mInterstitialAd != null) {
-                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        super.onAdDismissedFullScreenContent();
-                        openNextActivity(mActivity, cls, what, handler);
-                        firstLoadAds(mActivity);
-                    }
-
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                        super.onAdFailedToShowFullScreenContent(adError);
-                        openNextActivity(mActivity, cls, what, handler);
-                    }
-                });
-                mInterstitialAd.show(mActivity);
-            } else {
+        AdManager.get().showInterstitial(mActivity, new AdManager.InterstitialCallback() {
+            @Override
+            public void onAdClosed() {
                 openNextActivity(mActivity, cls, what, handler);
             }
-        } else {
-            openNextActivity(mActivity, cls, what, handler);
-        }
+
+            @Override
+            public void onAdFailedToLoad(String error) {
+                openNextActivity(mActivity, cls, what, handler);
+            }
+        });
     }
 
     public static void showIntAdsCount(final Activity mActivity, final Class cls) {
@@ -169,30 +97,11 @@ public class Utils {
     }
 
     public static void showIntAdsCount(final Activity mActivity, final Class cls, final int what, final Handler handler) {
-        if (BuildConfig.ADS_SHOWN) {
-            if (mInterstitialAd != null && LAUNCH_ADS >= COUNT_ADS) {
-                LAUNCH_ADS = 0;
-                mInterstitialAd.setFullScreenContentCallback(new FullScreenContentCallback() {
-                    @Override
-                    public void onAdDismissedFullScreenContent() {
-                        super.onAdDismissedFullScreenContent();
-                        openNextActivity(mActivity, cls, what, handler);
-                        firstLoadAds(mActivity);
-                    }
-
-                    @Override
-                    public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                        super.onAdFailedToShowFullScreenContent(adError);
-                        openNextActivity(mActivity, cls, what, handler);
-                    }
-                });
-                mInterstitialAd.show(mActivity);
-            } else {
-                LAUNCH_ADS++;
-                openNextActivity(mActivity, cls, what, handler);
-            }
-        } else {
+        if (LAUNCH_ADS >= COUNT_ADS) {
             LAUNCH_ADS = 0;
+            showIntAds(mActivity, cls, what, handler);
+        } else {
+            LAUNCH_ADS++;
             openNextActivity(mActivity, cls, what, handler);
         }
     }

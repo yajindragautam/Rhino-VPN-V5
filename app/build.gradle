@@ -17,19 +17,27 @@ android {
         applicationId appname
         minSdk minSDK
         targetSdk targetSDK
-        versionCode 13
-        versionName "5.0"
+        versionCode 14
+        versionName "5.0.0.1"
         configurations.configureEach {
             resolutionStrategy { force 'androidx.core:core-ktx:1.13.0' }
         }
 
         buildConfigField 'boolean', "ADS_SHOWN", "true"//true or false
+        buildConfigField 'String', "AD_NETWORK", '"facebook"' // "admob" or "facebook"
+
         //Test Ads Key
         resValue 'string', "main_app_id", "ca-app-pub-4324936595385675~4572282704"
-        resValue 'string', "banner_app_id", "ca-app-pub-4324936595385675/3164794938"
-        resValue 'string', "interstitial_app_id", "ca-app-pub-4324936595385675/5025842372"
-        resValue 'string', "native_app_id", "ca-app-pub-4324936595385675/7790435654"
-        resValue 'string', "app_open_id", "ca-app-pub-4324936595385675/1565109510"
+        resValue 'string', "banner_app_id", "ca-app-pub-3940256099942544/6300978111"
+        resValue 'string', "interstitial_app_id", "ca-app-pub-3940256099942544/1033173712"
+        resValue 'string', "native_app_id", "ca-app-pub-3940256099942544/2247696110"
+        resValue 'string', "app_open_id", "ca-app-pub-3940256099942544/9257395921"
+
+        // Facebook Ads Keys
+        resValue 'string', "fb_banner_id", "27505075835792910_27505364145764079"
+        resValue 'string', "fb_interstitial_id", "27505075835792910_27505368502430310"
+        resValue 'string', "fb_native_id", "27505075835792910_27505371569096670"
+
         resValue 'string', 'feedback_email', "manish.mg698@gmail.com"
     }
 
@@ -108,5 +116,6 @@ dependencies {
     implementation(libs.fastscroll)
     implementation(libs.openssl)
     implementation(libs.glide)
+    implementation(libs.facebookads)
     implementation "androidx.core:core:1.13.0" // or higher
 }

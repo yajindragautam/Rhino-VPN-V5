@@ -9,8 +9,10 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.app.Activity;
 
 import androidx.annotation.NonNull;
 import androidx.constraintlayout.widget.ConstraintLayout;
@@ -19,11 +21,10 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.rhino.vpnapp.R;
 import com.rhino.vpnapp.interfaces.onNewServerSelectedListener;
+import com.rhino.vpnapp.managers.AdManager;
 import com.rhino.vpnapp.managers.SessionManager;
 import com.rhino.vpnapp.models.Server;
 import com.rhino.vpnapp.utils.Utils;
-import com.google.android.gms.ads.AdRequest;
-import com.google.android.gms.ads.AdView;
 
 import java.util.ArrayList;
 
@@ -79,8 +80,9 @@ public class ServerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
                 }
             } else if (holder.getItemViewType() == BANNER_AD_VIEW_TYPE) {
                 AdViewHolder adViewHolder = (AdViewHolder) holder;
-                AdRequest adRequest = new AdRequest.Builder().build();
-                adViewHolder.adView.loadAd(adRequest);
+                if (mContext instanceof Activity) {
+                    AdManager.get().loadBanner((Activity) mContext, adViewHolder.bannerContainer);
+                }
             }
         } catch (Exception e) {
             Utils.getErrors(e);
@@ -116,11 +118,11 @@ public class ServerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     }
 
     public static class AdViewHolder extends RecyclerView.ViewHolder {
-        private final AdView adView;
+        private final FrameLayout bannerContainer;
 
         AdViewHolder(View view) {
             super(view);
-            adView = itemView.findViewById(R.id.adViewID);
+            bannerContainer = itemView.findViewById(R.id.bannerContainer);
         }
     }
 }

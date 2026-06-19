@@ -49,6 +49,7 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import com.airbnb.lottie.LottieAnimationView;
 import com.rhino.vpnapp.BuildConfig;
+import com.facebook.ads.NativeAdLayout;
 import com.rhino.vpnapp.R;
 import com.rhino.vpnapp.adapter.NavigationAdapter;
 import com.rhino.vpnapp.constants.IConstants;
@@ -103,6 +104,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
     private boolean vpnStart = false;
     private boolean isBegin = false;
     private Server server;
+    private NativeAdLayout fbNativeAdLayout;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -122,7 +124,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         toggle.syncState();
         setRecyclerView();
 
-        Utils.initNativeAds(mActivity, templateView);
+        Utils.initNativeAds(mActivity, templateView, fbNativeAdLayout);
         Utils.firstLoadAds(mActivity);
 
         askNotification13();
@@ -183,6 +185,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         txtStatus = findViewById(R.id.txtStatus);
         layoutServers = findViewById(R.id.layoutServers);
         templateView = findViewById(R.id.templateView);
+        fbNativeAdLayout = findViewById(R.id.fbNativeAdLayout);
         imgConnect = findViewById(R.id.imgConnect);
         imgDisconnect = findViewById(R.id.imgDisconnect);
         imgCountryFlag = findViewById(R.id.imgCountryFlag);

@@ -19,6 +19,7 @@ crypto = "1.1.0"
 fastscroll = "2.1.0"
 openssl = "1.1.1q-beta-1"
 glide = "5.0.5"
+facebookads = "6.21.0"
 
 [libraries]
 appcompat = { group = "androidx.appcompat", name = "appcompat", version.ref = "appcompat" }
@@ -40,6 +41,7 @@ crypto = { group = "androidx.security", name = "security-crypto", version.ref = 
 fastscroll = { group = "io.github.l4digital", name = "fastscroll", version.ref = "fastscroll"}
 openssl = { group = "com.android.ndk.thirdparty", name = "openssl", version.ref = "openssl"}
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
+facebookads = { group = "com.facebook.android", name = "audience-network-sdk", version.ref = "facebookads"}
 
 [plugins]
 android-application = { id = "com.android.application", version.ref = "agp" }

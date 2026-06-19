@@ -13,6 +13,7 @@ import androidx.lifecycle.ProcessLifecycleOwner;
 
 import com.rhino.vpnapp.BuildConfig;
 import com.rhino.vpnapp.R;
+import com.rhino.vpnapp.managers.AdManager;
 import com.rhino.vpnapp.managers.SessionManager;
 import com.rhino.vpnapp.managers.UsageManager;
 import com.rhino.vpnapp.utils.Utils;
@@ -20,7 +21,6 @@ import com.google.android.gms.ads.AdError;
 import com.google.android.gms.ads.AdRequest;
 import com.google.android.gms.ads.FullScreenContentCallback;
 import com.google.android.gms.ads.LoadAdError;
-import com.google.android.gms.ads.MobileAds;
 import com.google.android.gms.ads.appopen.AppOpenAd;
 
 import java.util.Date;
@@ -37,8 +37,7 @@ public class UIApplication extends Application implements Application.ActivityLi
         super.onCreate();
 
         this.registerActivityLifecycleCallbacks(this);
-        MobileAds.initialize(this, initializationStatus -> {
-        });
+        AdManager.init(getApplicationContext());
 
         SessionManager.init(getApplicationContext());
         UsageManager.init(getApplicationContext());

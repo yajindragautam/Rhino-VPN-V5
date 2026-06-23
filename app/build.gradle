@@ -117,5 +117,6 @@ dependencies {
     implementation(libs.openssl)
     implementation(libs.glide)
     implementation(libs.facebookads)
+    implementation(libs.annotation)
     implementation "androidx.core:core:1.13.0" // or higher
 }

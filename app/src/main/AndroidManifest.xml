@@ -41,6 +41,10 @@
             android:name="com.google.android.gms.ads.APPLICATION_ID"
             android:value="@string/main_app_id" />
 
+        <meta-data
+            android:name="com.startapp.sdk.APPLICATION_ID"
+            android:value="205942013" />
+
         <activity
             android:name=".activity.SplashActivity"
             android:exported="true"

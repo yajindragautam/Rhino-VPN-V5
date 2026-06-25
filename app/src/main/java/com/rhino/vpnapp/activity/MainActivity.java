@@ -279,9 +279,9 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         temp.add(new Server(getString(R.string.strJapan1), R.drawable.flag_japan, "japan1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan2), R.drawable.flag_japan, "japan2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strJapan3), R.drawable.flag_japan, "japan3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-//        temp.add(new Server(getString(R.string.strKorea1), R.drawable.flag_korea, "korea1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strKorea2), R.drawable.flag_korea, "korea2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
-        temp.add(new Server(getString(R.string.strKorea3), R.drawable.flag_korea, "korea3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        temp.add(new Server(getString(R.string.strKorea1), R.drawable.flag_korea, "korea1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+        temp.add(new Server(getString(R.string.strKorea2), R.drawable.flag_korea, "korea_4.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
+//        temp.add(new Server(getString(R.string.strKorea3), R.drawable.flag_korea, "korea3.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strRussia), R.drawable.flag_russia, "russia2.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         temp.add(new Server(getString(R.string.strThailand1), R.drawable.flag_thailand, "thailand1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));

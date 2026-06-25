@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.app.Application;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
@@ -28,285 +29,266 @@ import java.util.Date;
 import de.blinkt.openvpn.core.PRNGFixes;
 import de.blinkt.openvpn.core.StatusListener;
 
-public class UIApplication extends Application implements Application.ActivityLifecycleCallbacks, DefaultLifecycleObserver {
+public class UIApplication extends Application
+        implements Application.ActivityLifecycleCallbacks, DefaultLifecycleObserver {
+
+    private static final String TAG = "UIApplication";
     private AppOpenAdManager appOpenAdManager;
     private Activity currentActivity;
+
+    // ✅ Tracks if app is coming from background (not cold start)
+    private boolean isAppResumedFromBackground = false;
 
     @Override
     public void onCreate() {
         super.onCreate();
 
         this.registerActivityLifecycleCallbacks(this);
-        AdManager.init(getApplicationContext());
 
+        // ✅ Step 1: Session managers first
         SessionManager.init(getApplicationContext());
         UsageManager.init(getApplicationContext());
+
+        // ✅ Step 2: Dark mode
         try {
-            Utils.setDarkMode(SessionManager.get().isDarkModeOn());
+            SessionManager session = SessionManager.get();
+            if (session != null) {
+                Utils.setDarkMode(session.isDarkModeOn());
+            }
         } catch (Exception e) {
             Utils.getErrors(e);
         }
 
-        SessionManager session = SessionManager.get();
-        if (session != null && session.getDeviceCreated().equalsIgnoreCase("null")) {
-            session.setDeviceCreated(String.valueOf(System.currentTimeMillis()));
+        // ✅ Step 3: Device created timestamp
+        try {
+            SessionManager session = SessionManager.get();
+            if (session != null) {
+                String deviceCreated = session.getDeviceCreated();
+                if (deviceCreated == null || deviceCreated.equalsIgnoreCase("null")) {
+                    session.setDeviceCreated(String.valueOf(System.currentTimeMillis()));
+                }
+            }
+        } catch (Exception e) {
+            Utils.getErrors(e);
         }
 
-        if (BuildConfig.ADS_SHOWN) {
+        // ✅ Step 4: Initialize AdManager
+        AdManager.init(getApplicationContext());
+
+        // ✅ Step 5: App Open Ads only for AdMob
+        if (BuildConfig.ADS_SHOWN && "admob".equals(BuildConfig.AD_NETWORK)) {
             ProcessLifecycleOwner.get().getLifecycle().addObserver(this);
             appOpenAdManager = new AppOpenAdManager(getString(R.string.app_open_id));
         }
 
+        // ✅ Step 6: VPN init
         PRNGFixes.apply();
         StatusListener mStatus = new StatusListener();
         mStatus.init(getApplicationContext());
     }
 
+    // ✅ KEY FIX: Only show App Open ad when returning FROM background
+    // NOT on cold start — this was freezing the splash screen
     @Override
     public void onStart(@NonNull LifecycleOwner owner) {
         DefaultLifecycleObserver.super.onStart(owner);
-        // Show the ad (if available) when the app moves to foreground.
-        if (BuildConfig.ADS_SHOWN) {
+
+        if (!BuildConfig.ADS_SHOWN || !"admob".equals(BuildConfig.AD_NETWORK)) return;
+        if (appOpenAdManager == null) return;
+        if (currentActivity == null) return;
+
+        // ✅ Only show when returning from background, not on first launch
+        if (isAppResumedFromBackground) {
             appOpenAdManager.showAdIfAvailable(currentActivity);
         }
     }
 
-    /**
-     * ActivityLifecycleCallback methods.
-     */
     @Override
-    public void onActivityCreated(@NonNull Activity activity, @Nullable Bundle savedInstanceState) {
+    public void onStop(@NonNull LifecycleOwner owner) {
+        DefaultLifecycleObserver.super.onStop(owner);
+        // ✅ Mark that app went to background
+        isAppResumedFromBackground = true;
+    }
+
+    // ==========================================
+    //  ACTIVITY LIFECYCLE
+    // ==========================================
+
+    @Override
+    public void onActivityCreated(@NonNull Activity activity,
+                                  @Nullable Bundle savedInstanceState) {
+        currentActivity = activity;
     }
 
     @Override
     public void onActivityStarted(@NonNull Activity activity) {
-        // An ad activity is started when an ad is showing, which could be AdActivity class from Google
-        // SDK or another activity class implemented by a third party mediation partner. Updating the
-        // currentActivity only when an ad is not showing will ensure it is not an ad activity, but the
-        // one that shows the ad.
-        if (BuildConfig.ADS_SHOWN) {
-            if (!appOpenAdManager.isShowingAd) {
-                currentActivity = activity;
-            }
+        if (BuildConfig.ADS_SHOWN
+                && "admob".equals(BuildConfig.AD_NETWORK)
+                && appOpenAdManager != null
+                && !appOpenAdManager.isShowingAd) {
+            currentActivity = activity;
+        } else {
+            currentActivity = activity;
         }
     }
 
     @Override
     public void onActivityResumed(@NonNull Activity activity) {
+        currentActivity = activity;
     }
 
-    @Override
-    public void onActivityPaused(@NonNull Activity activity) {
-    }
-
-    @Override
-    public void onActivityStopped(@NonNull Activity activity) {
-    }
-
-    @Override
-    public void onActivitySaveInstanceState(@NonNull Activity activity, @NonNull Bundle outState) {
-    }
-
-    @Override
-    public void onActivityDestroyed(@NonNull Activity activity) {
-    }
-
-    /**
-     * Shows an app open ad.
-     *
-     * @param activity                 the activity that shows the app open ad
-     * @param onShowAdCompleteListener the listener to be notified when an app open ad is complete
-     */
-    public void showAdIfAvailable(
-            @NonNull Activity activity,
-            @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
-        // We wrap the showAdIfAvailable to enforce that other classes only interact with MyApplication
-        // class.
-        if (BuildConfig.ADS_SHOWN) {
-            appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
+    @Override public void onActivityPaused(@NonNull Activity activity) {}
+    @Override public void onActivityStopped(@NonNull Activity activity) {}
+    @Override public void onActivitySaveInstanceState(@NonNull Activity activity,
+                                                      @NonNull Bundle outState) {}
+    @Override public void onActivityDestroyed(@NonNull Activity activity) {
+        if (currentActivity == activity) {
+            currentActivity = null;
         }
     }
 
-    /**
-     * Interface definition for a callback to be invoked when an app open ad is complete
-     * (i.e. dismissed or fails to show).
-     */
+    // ==========================================
+    //  PUBLIC SHOW METHOD
+    // ==========================================
+
+    public void showAdIfAvailable(
+            @NonNull Activity activity,
+            @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
+        if (BuildConfig.ADS_SHOWN
+                && "admob".equals(BuildConfig.AD_NETWORK)
+                && appOpenAdManager != null) {
+            appOpenAdManager.showAdIfAvailable(activity, onShowAdCompleteListener);
+        } else {
+            // ✅ Always call complete so caller is never stuck waiting
+            onShowAdCompleteListener.onShowAdComplete();
+        }
+    }
+
     public interface OnShowAdCompleteListener {
         void onShowAdComplete();
     }
 
-    /**
-     * Inner class that loads and shows app open ads.
-     */
+    // ==========================================
+    //  APP OPEN AD MANAGER (AdMob only)
+    // ==========================================
+
     private static class AppOpenAdManager {
 
-        private final String adUnitId;
+        private static final String TAG = "AppOpenAdManager";
 
+        private final String adUnitId;
         private AppOpenAd appOpenAd = null;
         private boolean isLoadingAd = false;
-        private boolean isShowingAd = false;
-
-        /**
-         * Keep track of the time an app open ad is loaded to ensure you don't show an expired ad.
-         */
+        boolean isShowingAd = false;
         private long loadTime = 0;
 
-        /**
-         * Constructor.
-         */
         public AppOpenAdManager(String adUnitId) {
             this.adUnitId = adUnitId;
         }
 
-        /**
-         * Load an ad.
-         *
-         * @param context the context of the activity that loads the ad
-         */
         private void loadAd(Context context) {
-            // Do not load ad if there is an unused ad or one is already loading.
+            // ✅ Don't load if already loading or already have a fresh ad
             if (isLoadingAd || isAdAvailable()) {
+                Log.d(TAG, "App open ad already loading or available, skipping");
                 return;
             }
 
             isLoadingAd = true;
             AdRequest request = new AdRequest.Builder().build();
-            AppOpenAd.load(context, adUnitId, request, AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT, new AppOpenAd.AppOpenAdLoadCallback() {
-                @Override
-                public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
-                    super.onAdFailedToLoad(loadAdError);
-                }
 
-                @Override
-                public void onAdLoaded(@NonNull AppOpenAd appOpenAd) {
-                    super.onAdLoaded(appOpenAd);
-                }
-            });
+            // ✅ FIXED: Only ONE AppOpenAd.load() call (was duplicated before)
             AppOpenAd.load(
                     context,
                     adUnitId,
                     request,
                     AppOpenAd.APP_OPEN_AD_ORIENTATION_PORTRAIT,
                     new AppOpenAd.AppOpenAdLoadCallback() {
-                        /**
-                         * Called when an app open ad has loaded.
-                         *
-                         * @param ad the loaded app open ad.
-                         */
                         @Override
                         public void onAdLoaded(@NonNull AppOpenAd ad) {
                             appOpenAd = ad;
                             isLoadingAd = false;
-                            loadTime = (new Date()).getTime();
-
-//                            Utils.sout("UIApplication onAdLoaded...");
+                            loadTime = new Date().getTime();
+                            Log.d(TAG, "✅ App open ad loaded");
                         }
 
-                        /**
-                         * Called when an app open ad has failed to load.
-                         *
-                         * @param loadAdError the error.
-                         */
                         @Override
                         public void onAdFailedToLoad(@NonNull LoadAdError loadAdError) {
                             isLoadingAd = false;
-//                            Utils.sout("UIApplication onAdFailedToLoad: " + loadAdError.getMessage());
+                            Log.e(TAG, "App open ad failed: " + loadAdError.getMessage());
                         }
                     });
         }
 
-        /**
-         * Check if ad was loaded more than n hours ago.
-         */
         private boolean wasLoadTimeLessThanNHoursAgo() {
-            long dateDifference = (new Date()).getTime() - loadTime;
+            long dateDifference = new Date().getTime() - loadTime;
             long numMilliSecondsPerHour = 3600000;
-            return (dateDifference < (numMilliSecondsPerHour * (long) 4));
+            return dateDifference < (numMilliSecondsPerHour * 4L);
         }
 
-        /**
-         * Check if ad exists and can be shown.
-         */
         private boolean isAdAvailable() {
-            // Ad references in the app open beta will time out after four hours, but this time limit
-            // may change in future beta versions. For details, see:
-            // https://support.google.com/admob/answer/9341964?hl=en
             return appOpenAd != null && wasLoadTimeLessThanNHoursAgo();
         }
 
-        /**
-         * Show the ad if one isn't already showing.
-         *
-         * @param activity the activity that shows the app open ad
-         */
         private void showAdIfAvailable(@NonNull final Activity activity) {
-            showAdIfAvailable(
-                    activity,
-                    () -> {
-                        // Empty because the user will go back to the activity that shows the ad.
-                    });
+            showAdIfAvailable(activity, () -> {});
         }
 
-        /**
-         * Show the ad if one isn't already showing.
-         *
-         * @param activity                 the activity that shows the app open ad
-         * @param onShowAdCompleteListener the listener to be notified when an app open ad is complete
-         */
         private void showAdIfAvailable(
                 @NonNull final Activity activity,
                 @NonNull OnShowAdCompleteListener onShowAdCompleteListener) {
-            // If the app open ad is already showing, do not show the ad again.
+
+            // ✅ Already showing — don't stack ads
             if (isShowingAd) {
-//                Utils.sout("UIApplication The app open ad is already showing.");
+                Log.d(TAG, "Ad already showing, skipping");
                 return;
             }
 
-            if (!activity.getClass().getSimpleName().equalsIgnoreCase("SplashActivity")) {
-                Utils.sout("UIApplication: Different Activity to not shown app Ads:" + activity.getClass().getSimpleName());
+            // ✅ Only show on SplashActivity
+            String activityName = activity.getClass().getSimpleName();
+            if (!activityName.equalsIgnoreCase("SplashActivity")) {
+                Log.d(TAG, "Not SplashActivity (" + activityName + "), skipping app open ad");
+                // ✅ Load for next time but don't block the caller
+                loadAd(activity);
                 return;
             }
-            // If the app open ad is not available yet, invoke the callback then load the ad.
+
+            // ✅ No ad available — proceed without blocking
             if (!isAdAvailable()) {
-//                Utils.sout("UIApplication The app open ad is not ready yet.");
+                Log.d(TAG, "App open ad not available, proceeding without ad");
                 onShowAdCompleteListener.onShowAdComplete();
                 loadAd(activity);
                 return;
             }
 
-//            Utils.sout("UIApplication Will show ad.");
+            // ✅ Show the ad
+            appOpenAd.setFullScreenContentCallback(new FullScreenContentCallback() {
+                @Override
+                public void onAdDismissedFullScreenContent() {
+                    appOpenAd = null;
+                    isShowingAd = false;
+                    Log.d(TAG, "App open ad dismissed");
+                    onShowAdCompleteListener.onShowAdComplete();
+                    loadAd(activity);
+                }
 
-            appOpenAd.setFullScreenContentCallback(
-                    new FullScreenContentCallback() {
-                        /** Called when full screen content is dismissed. */
-                        @Override
-                        public void onAdDismissedFullScreenContent() {
-                            // Set the reference to null so isAdAvailable() returns false.
-                            appOpenAd = null;
-                            isShowingAd = false;
-//                            Utils.sout("UIApplication onAdDismissedFullScreenContent.");
-                            onShowAdCompleteListener.onShowAdComplete();
-                            loadAd(activity);
-                        }
+                @Override
+                public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
+                    appOpenAd = null;
+                    isShowingAd = false;
+                    Log.e(TAG, "App open ad failed to show: " + adError.getMessage());
+                    // ✅ Always call complete so app never gets stuck
+                    onShowAdCompleteListener.onShowAdComplete();
+                    loadAd(activity);
+                }
 
-                        /** Called when fullscreen content failed to show. */
-                        @Override
-                        public void onAdFailedToShowFullScreenContent(@NonNull AdError adError) {
-                            appOpenAd = null;
-                            isShowingAd = false;
-//                            Utils.sout("UIApplication onAdFailedToShowFullScreenContent: " + adError.getMessage());
-                            onShowAdCompleteListener.onShowAdComplete();
-                            loadAd(activity);
-                        }
+                @Override
+                public void onAdShowedFullScreenContent() {
+                    isShowingAd = true;
+                    Log.d(TAG, "App open ad showed");
+                }
+            });
 
-                        /** Called when fullscreen content is shown. */
-                        @Override
-                        public void onAdShowedFullScreenContent() {
-//                            Utils.sout("UIApplication onAdShowedFullScreenContent.");
-                        }
-                    });
-
-            isShowingAd = true;
+            Log.d(TAG, "Showing app open ad...");
             appOpenAd.show(activity);
         }
     }

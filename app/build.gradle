@@ -10,21 +10,21 @@ ext {
 }
 
 android {
-    namespace appname
+    namespace "com.rhino.vpnapp"
     compileSdkVersion compileSDK
 
     defaultConfig {
-        applicationId appname
+        applicationId "com.rhino.vpnapp"
         minSdk minSDK
         targetSdk targetSDK
-        versionCode 14
-        versionName "5.0.0.1"
+        versionCode 15
+        versionName "5.0.0.2"
         configurations.configureEach {
             resolutionStrategy { force 'androidx.core:core-ktx:1.13.0' }
         }
 
         buildConfigField 'boolean', "ADS_SHOWN", "true"//true or false
-        buildConfigField 'String', "AD_NETWORK", '"facebook"' // "admob" or "facebook"
+        buildConfigField 'String', "AD_NETWORK", '"startapp"' // "admob" or "facebook" or "startapp"
 
         //Test Ads Key
         resValue 'string', "main_app_id", "ca-app-pub-4324936595385675~4572282704"
@@ -37,6 +37,8 @@ android {
         resValue 'string', "fb_banner_id", "27505075835792910_27505364145764079"
         resValue 'string', "fb_interstitial_id", "27505075835792910_27505368502430310"
         resValue 'string', "fb_native_id", "27505075835792910_27505371569096670"
+
+        resValue 'string', "startapp_app_id", "205942013"
 
         resValue 'string', 'feedback_email', "manish.mg698@gmail.com"
     }
@@ -117,6 +119,7 @@ dependencies {
     implementation(libs.openssl)
     implementation(libs.glide)
     implementation(libs.facebookads)
+    implementation(libs.startappads)
     implementation(libs.annotation)
     implementation "androidx.core:core:1.13.0" // or higher
 }

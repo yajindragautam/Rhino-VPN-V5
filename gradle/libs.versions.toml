@@ -20,6 +20,7 @@ fastscroll = "2.1.0"
 openssl = "1.1.1q-beta-1"
 glide = "5.0.5"
 facebookads = "6.21.0"
+startappads = "5.+"
 annotation="1.10.0"
 
 [libraries]
@@ -43,6 +44,7 @@ fastscroll = { group = "io.github.l4digital", name = "fastscroll", version.ref =
 openssl = { group = "com.android.ndk.thirdparty", name = "openssl", version.ref = "openssl"}
 glide = { group = "com.github.bumptech.glide", name = "glide", version.ref = "glide"}
 facebookads = { group = "com.facebook.android", name = "audience-network-sdk", version.ref = "facebookads"}
+startappads = { group = "com.startapp", name = "inapp-sdk", version.ref = "startappads"}
 annotation = { group = "androidx.annotation", name = "annotation", version.ref = "annotation"}
 
 [plugins]

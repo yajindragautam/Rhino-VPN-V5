@@ -23,12 +23,11 @@ import com.google.android.gms.ads.interstitial.InterstitialAd;
 import com.google.android.gms.ads.interstitial.InterstitialAdLoadCallback;
 
 // Facebook imports
-import com.facebook.ads.Ad;
+// Facebook imports
 import com.facebook.ads.AdOptionsView;
 import com.facebook.ads.AdSettings;
 import com.facebook.ads.AudienceNetworkAds;
 import com.facebook.ads.InterstitialAdListener;
-import com.facebook.ads.NativeAd;
 import com.facebook.ads.NativeAdLayout;
 import com.facebook.ads.NativeAdListener;
 
@@ -37,13 +36,13 @@ import com.google.android.gms.ads.AdLoader;
 
 // StartApp imports
 import com.startapp.sdk.ads.banner.Banner;
+import com.startapp.sdk.ads.banner.Cover;
 import com.startapp.sdk.adsbase.StartAppAd;
+import com.startapp.sdk.adsbase.StartAppAd.AdMode;
 import com.startapp.sdk.adsbase.StartAppSDK;
+import com.startapp.sdk.adsbase.VideoListener;
 import com.startapp.sdk.adsbase.adlisteners.AdEventListener;
 import com.startapp.sdk.adsbase.adlisteners.AdDisplayListener;
-import com.startapp.sdk.ads.nativead.NativeAdDetails;
-import com.startapp.sdk.ads.nativead.NativeAdPreferences;
-import com.startapp.sdk.ads.nativead.StartAppNativeAd;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -64,7 +63,7 @@ public class AdManager {
     // ─── Facebook ─────────────────────────────────────────
     private com.facebook.ads.InterstitialAd fbInterstitial;
     private com.facebook.ads.AdView         fbBannerAd;
-    private NativeAd                         fbNativeAd;
+    private com.facebook.ads.NativeAd        fbNativeAd;
 
     // ✅ Loading guards
     private boolean isFbBannerLoading       = false;
@@ -132,7 +131,6 @@ public class AdManager {
     private void initStartAppSdk(Context context) {
         String appId = context.getString(R.string.startapp_app_id);
         StartAppSDK.init(context, appId, true);
-//        StartAppSDK.setTestAdsEnabled(BuildConfig.DEBUG);
         Log.d(TAG, "✅ StartApp SDK initialized with ID: " + appId);
     }
 
@@ -256,7 +254,7 @@ public class AdManager {
 
         com.facebook.ads.AdListener listener = new com.facebook.ads.AdListener() {
             @Override
-            public void onError(Ad ad, com.facebook.ads.AdError error) {
+            public void onError(com.facebook.ads.Ad ad, com.facebook.ads.AdError error) {
                 isFbBannerLoading = false;
                 fbBannerAd = null;
                 // ✅ Never retry inside onError — causes error 1002
@@ -264,12 +262,12 @@ public class AdManager {
                         + "]: " + error.getErrorMessage());
             }
             @Override
-            public void onAdLoaded(Ad ad) {
+            public void onAdLoaded(com.facebook.ads.Ad ad) {
                 isFbBannerLoading = false;
                 Log.d(TAG, "✅ FB Banner loaded");
             }
-            @Override public void onAdClicked(Ad ad) {}
-            @Override public void onLoggingImpression(Ad ad) {
+            @Override public void onAdClicked(com.facebook.ads.Ad ad) {}
+            @Override public void onLoggingImpression(com.facebook.ads.Ad ad) {
                 Log.d(TAG, "FB Banner impression logged");
             }
         };
@@ -364,12 +362,12 @@ public class AdManager {
                         .withAdListener(new InterstitialAdListener() {
 
                             @Override
-                            public void onInterstitialDisplayed(Ad ad) {
+                            public void onInterstitialDisplayed(com.facebook.ads.Ad ad) {
                                 Log.d(TAG, "FB Interstitial displayed");
                             }
 
                             @Override
-                            public void onInterstitialDismissed(Ad ad) {
+                            public void onInterstitialDismissed(com.facebook.ads.Ad ad) {
                                 Log.d(TAG, "FB Interstitial dismissed");
                                 fbInterstitial = null;
 
@@ -386,7 +384,7 @@ public class AdManager {
                             }
 
                             @Override
-                            public void onError(Ad ad, com.facebook.ads.AdError error) {
+                            public void onError(com.facebook.ads.Ad ad, com.facebook.ads.AdError error) {
                                 isFbInterstitialLoading = false;
                                 // ✅ Never retry inside onError — causes error 1002
                                 Log.e(TAG, "FB Interstitial error ["
@@ -401,13 +399,13 @@ public class AdManager {
                             }
 
                             @Override
-                            public void onAdLoaded(Ad ad) {
+                            public void onAdLoaded(com.facebook.ads.Ad ad) {
                                 isFbInterstitialLoading = false;
                                 Log.d(TAG, "✅ FB Interstitial loaded");
                             }
 
-                            @Override public void onAdClicked(Ad ad) {}
-                            @Override public void onLoggingImpression(Ad ad) {
+                            @Override public void onAdClicked(com.facebook.ads.Ad ad) {}
+                            @Override public void onLoggingImpression(com.facebook.ads.Ad ad) {
                                 Log.d(TAG, "FB Interstitial impression logged");
                             }
                         })
@@ -423,10 +421,46 @@ public class AdManager {
         if (NETWORK_FACEBOOK.equals(adNetwork)) {
             showFacebookInterstitial(activity, callback);
         } else if (NETWORK_STARTAPP.equals(adNetwork)) {
+//            showStartAppRewarded(activity, callback);
             showStartAppInterstitial(activity, callback);
         } else {
             showAdMobInterstitial(activity, callback);
         }
+    }
+
+    private void showStartAppRewarded(Activity activity, InterstitialCallback callback) {
+        StartAppAd startAppAd = new StartAppAd(activity);
+        
+        startAppAd.setVideoListener(new VideoListener() {
+            @Override
+            public void onVideoCompleted() {
+                Log.d(TAG, "StartApp Rewarded: Video completed");
+                // User is eligible for reward
+            }
+        });
+
+        startAppAd.loadAd(AdMode.REWARDED_VIDEO, new AdEventListener() {
+            @Override
+            public void onReceiveAd(com.startapp.sdk.adsbase.Ad ad) {
+                startAppAd.showAd(new AdDisplayListener() {
+                    @Override
+                    public void adHidden(com.startapp.sdk.adsbase.Ad ad) {
+                        if (callback != null) callback.onAdClosed();
+                    }
+                    @Override public void adDisplayed(com.startapp.sdk.adsbase.Ad ad) { Log.d(TAG, "StartApp rewarded ad displayed"); }
+                    @Override public void adClicked(com.startapp.sdk.adsbase.Ad ad) {}
+                    @Override public void adNotDisplayed(com.startapp.sdk.adsbase.Ad ad) {
+                        if (callback != null) callback.onAdClosed();
+                    }
+                });
+            }
+
+            @Override
+            public void onFailedToReceiveAd(com.startapp.sdk.adsbase.Ad ad) {
+                Log.e(TAG, "StartApp rewarded ad failed to load");
+                if (callback != null) callback.onAdFailedToLoad("StartApp load failed");
+            }
+        });
     }
 
     private void showStartAppInterstitial(Activity activity, InterstitialCallback callback) {
@@ -517,7 +551,7 @@ public class AdManager {
             }
         } else if (NETWORK_STARTAPP.equals(adNetwork)) {
             if (template != null) {
-                loadStartAppNativeAd(activity, template);
+                loadStartAppCoverAd(activity, template);
             }
         } else {
             if (template != null) {
@@ -528,33 +562,20 @@ public class AdManager {
         }
     }
 
-    private void loadStartAppNativeAd(Activity activity, TemplateView template) {
-        StartAppNativeAd startAppNativeAd = new StartAppNativeAd(activity);
-        NativeAdPreferences nativePrefs = new NativeAdPreferences();
-        nativePrefs.setAdsNumber(1);
-        nativePrefs.setAutoBitmapDownload(true);
-
-        startAppNativeAd.loadAd(nativePrefs, new AdEventListener() {
-            @Override
-            public void onReceiveAd(com.startapp.sdk.adsbase.Ad ad) {
-                ArrayList<NativeAdDetails> ads = startAppNativeAd.getNativeAds();
-                if (ads != null && ads.size() > 0) {
-                    NativeAdDetails adDetails = ads.get(0);
-                    // StartApp doesn't easily plug into AdMob's TemplateView without 
-                    // a lot of custom work, so we just log it for now or 
-                    // you might need a different view.
-                    Log.d(TAG, "✅ StartApp native ad loaded: " + adDetails.getTitle());
-                    // Note: Implementation for StartApp -> TemplateView would require 
-                    // modifying TemplateView or creating a wrapper.
-                }
-            }
-
-            @Override
-            public void onFailedToReceiveAd(com.startapp.sdk.adsbase.Ad ad) {
-                Log.e(TAG, "StartApp native failed to load");
-                template.setVisibility(View.GONE);
-            }
-        });
+    private void loadStartAppCoverAd(Activity activity, TemplateView template) {
+        try {
+            Log.d(TAG, "Loading StartApp Cover ad...");
+            Cover startAppCover = new Cover(activity);
+            
+            template.removeAllViews();
+            template.addView(startAppCover);
+            template.setVisibility(View.VISIBLE);
+            
+            Log.d(TAG, "✅ StartApp Cover ad loaded into native container");
+        } catch (Exception e) {
+            Log.e(TAG, "Error loading StartApp Cover: " + e.getMessage());
+            template.setVisibility(View.GONE);
+        }
     }
 
     private void loadAdMobNativeAd(Activity activity, TemplateView template) {
@@ -592,12 +613,12 @@ public class AdManager {
         lastNativeLoadTime = System.currentTimeMillis();
         Log.d(TAG, "FB Native loading...");
 
-        fbNativeAd = new NativeAd(activity, activity.getString(R.string.fb_native_id));
+        fbNativeAd = new com.facebook.ads.NativeAd(activity, activity.getString(R.string.fb_native_id));
         NativeAdListener nativeAdListener = new NativeAdListener() {
-            @Override public void onMediaDownloaded(Ad ad) {}
+            @Override public void onMediaDownloaded(com.facebook.ads.Ad ad) {}
 
             @Override
-            public void onError(Ad ad, com.facebook.ads.AdError adError) {
+            public void onError(com.facebook.ads.Ad ad, com.facebook.ads.AdError adError) {
                 isFbNativeLoading = false;
                 // ✅ Never retry inside onError
                 Log.e(TAG, "FB Native error [" + adError.getErrorCode()
@@ -605,15 +626,15 @@ public class AdManager {
             }
 
             @Override
-            public void onAdLoaded(Ad ad) {
+            public void onAdLoaded(com.facebook.ads.Ad ad) {
                 isFbNativeLoading = false;
                 if (fbNativeAd == null || fbNativeAd != ad) return;
                 Log.d(TAG, "✅ FB Native loaded");
                 inflateFacebookNativeAd(activity, fbNativeAd, nativeAdLayout);
             }
 
-            @Override public void onAdClicked(Ad ad) {}
-            @Override public void onLoggingImpression(Ad ad) {
+            @Override public void onAdClicked(com.facebook.ads.Ad ad) {}
+            @Override public void onLoggingImpression(com.facebook.ads.Ad ad) {
                 Log.d(TAG, "FB Native impression logged");
             }
         };
@@ -623,7 +644,7 @@ public class AdManager {
         );
     }
 
-    private void inflateFacebookNativeAd(Activity activity, NativeAd nativeAd,
+    private void inflateFacebookNativeAd(Activity activity, com.facebook.ads.NativeAd nativeAd,
                                          NativeAdLayout nativeAdLayout) {
         if (nativeAdLayout == null) return;
         nativeAd.unregisterView();

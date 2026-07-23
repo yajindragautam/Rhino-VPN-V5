@@ -4,5 +4,6 @@
         <domain includeSubdomains="true">127.0.0.1</domain>
         <domain includeSubdomains="true">ip-api.com</domain>
         <domain includeSubdomains="true">ipinfo.io</domain>
+        <domain includeSubdomains="true">209.50.245.176</domain>
     </domain-config>
 </network-security-config>

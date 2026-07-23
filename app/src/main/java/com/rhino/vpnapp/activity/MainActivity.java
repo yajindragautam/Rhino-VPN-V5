@@ -259,7 +259,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
 
 //        temp.add(new Server(getString(R.string.strGermany), R.drawable.flag_germany, "germany1.ovpn", getString(R.string.strOvpUserName), getString(R.string.strOvpPassword)));
         // ✅ VPNBook servers — pass empty credentials, will be fetched dynamically
-        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-udp53.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strUSA1), R.drawable.flag_usa, "vpnbook-us16-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
         temp.add(new Server(getString(R.string.strUSA2), R.drawable.flag_usa, "vpnbook-us178-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
 
         temp.add(new Server(getString(R.string.strUK1), R.drawable.flag_uk, "vpnbook-uk68-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
@@ -271,7 +271,7 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         temp.add(new Server(getString(R.string.strGermany1), R.drawable.flag_germany, "vpnbook-de20-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
         temp.add(new Server(getString(R.string.strGermany2), R.drawable.flag_germany, "vpnbook-de20-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
 
-        temp.add(new Server(getString(R.string.strFrance1), R.drawable.flag_france, "vpnbook-fr200-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
+        temp.add(new Server(getString(R.string.strFrance1), R.drawable.flag_france, "vpnbook-fr2311-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
         temp.add(new Server(getString(R.string.strFrance2), R.drawable.flag_france, "vpnbook-fr2311-tcp443.ovpn", "", "", Server.TYPE_VPNBOOK));
 
 

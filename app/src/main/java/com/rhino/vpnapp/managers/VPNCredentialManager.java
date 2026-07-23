@@ -16,7 +16,7 @@ public class VPNCredentialManager {
     private static final String TAG = "VPNCredentialManager";
 
     // ✅ Make sure this is correct — no trailing slash, correct port
-    private static final String API_URL = "https://node-vpn-scraping.up.railway.app/api/vpnbook/credentials";
+    private static final String API_URL = "http://209.50.245.176/scraper/api/vpnbook/credentials";
     private static final String API_KEY = "5keOCNiowsOKAgAREeXNN1wxmmZkt1iM";
 
     public interface CredentialCallback {

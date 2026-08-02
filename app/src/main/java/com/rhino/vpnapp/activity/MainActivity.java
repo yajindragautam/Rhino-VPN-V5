@@ -90,10 +90,9 @@ import dev.shreyaspatil.MaterialDialog.BottomSheetMaterialDialog;
 
 public class MainActivity extends BaseAppActivity implements View.OnClickListener {
     private DrawerLayout drawerLayout;
-    private Activity mActivity;
     private Toolbar toolbar;
     private RecyclerView recyclerView;
-    public static ArrayList<Server> items;
+    public static ArrayList<Server> items = new ArrayList<>();
     private TextView txtStatus, txtCountryName, txtTime, txtUploadSpeed, txtDownloadSpeed;
     private TextView txtYourIPAddress, txtVPNIPAddress;
     private ImageView imgCountryFlag, imgInstalledApp;
@@ -111,7 +110,6 @@ public class MainActivity extends BaseAppActivity implements View.OnClickListene
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
         setInsetMode(findViewById(R.id.mainRootLayout));
-        mActivity = this;
 //        Utils.initializeMobileAds(mActivity);
         init();
         initData();

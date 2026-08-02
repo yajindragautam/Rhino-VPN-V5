@@ -37,7 +37,11 @@ public class ServerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
     private final onNewServerSelectedListener onNewServerSelectedListener;
 
     public ServerListAdapter(Context mContext, ArrayList<Server> mItems, onNewServerSelectedListener onNewServerSelectedListener) {
-        this.items = mItems;
+        if (mItems == null) {
+            this.items = new ArrayList<>();
+        } else {
+            this.items = mItems;
+        }
         this.mContext = mContext;
         this.onNewServerSelectedListener = onNewServerSelectedListener;
         final Server mySer = SessionManager.get().getServer();
@@ -91,12 +95,13 @@ public class ServerListAdapter extends RecyclerView.Adapter<RecyclerView.ViewHol
 
     @Override
     public int getItemCount() {
+        if (items == null) return 0;
         return items.size();
     }
 
     @Override
     public int getItemViewType(int position) {
-        if (items.get(position) == null) {
+        if (items == null || items.get(position) == null) {
             return BANNER_AD_VIEW_TYPE;
         }
         return ITEM_VIEW_TYPE;

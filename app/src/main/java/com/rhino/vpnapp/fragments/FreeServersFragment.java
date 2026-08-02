@@ -67,10 +67,12 @@ public class FreeServersFragment extends Fragment {
 
     private final Handler myHandler = new Handler(message -> {
         Server server = SessionManager.get().getServer();
-        Intent intent = new Intent(getActivity(), MainActivity.class);
-        intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-        intent.putExtra(IConstants.BUNDLE_KEY_SERVER, new Gson().toJson(server));
-        startActivity(intent);
+        if (getActivity() != null) {
+            Intent intent = new Intent(getActivity(), MainActivity.class);
+            intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+            intent.putExtra(IConstants.BUNDLE_KEY_SERVER, new Gson().toJson(server));
+            startActivity(intent);
+        }
         return true;
     });
 }

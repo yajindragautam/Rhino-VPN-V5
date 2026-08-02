@@ -14,12 +14,14 @@ import com.rhino.vpnapp.R;
 public class Screens {
 
     public static void showClearTopScreen(final Context context, final Class<?> cls) {
+        if (context == null) return;
         final Intent intent = new Intent(context, cls);
         intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         context.startActivity(intent);
     }
 
     public static void showCustomScreen(final Context context, final Class<?> cls) {
+        if (context == null) return;
         final Intent intent = new Intent(context, cls);
         context.startActivity(intent);
         try {

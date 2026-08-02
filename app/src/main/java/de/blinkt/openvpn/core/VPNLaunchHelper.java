@@ -101,6 +101,10 @@ public class VPNLaunchHelper {
 
 
     public static void startOpenVpn(VpnProfile startprofile, Context context, String startReason, boolean replace_running_vpn) {
+        if (context == null) {
+            VpnStatus.logError("VPNLaunchHelper.startOpenVpn called with null context");
+            return;
+        }
         Intent startVPN = startprofile.getStartServiceIntent(context, startReason, replace_running_vpn);
         if (startVPN != null) {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O)
